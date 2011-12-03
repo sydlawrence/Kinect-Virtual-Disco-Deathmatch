@@ -22,13 +22,14 @@
 
 Kinect = {
 
-  currentPosition: undefined,
+  currentPosition: {},
   canvas: undefined,
   context: undefined,
   
   parseData: function(data) {  
-    console.log(JSON.parse(data));
-    Kinect.currentPosition = JSON.parse(data);
+  
+    var data = JSON.parse(data);
+    Kinect.currentPosition[data.player] = data;
     Kinect.draw();
     
   },
@@ -39,12 +40,12 @@ Kinect = {
     
   },
   
-  drawLimb: function(start, end) {
+  drawLimb: function(user, start, end) {
     
-    if (Kinect.currentPosition[start] && Kinect.currentPosition[end]) {
+    if (Kinect.currentPosition[user][start] && Kinect.currentPosition[user][end]) {
       Kinect.context.beginPath();      
-      Kinect.context.moveTo(Kinect.currentPosition[start].x,Kinect.currentPosition[start].y);  
-      Kinect.context.lineTo(Kinect.currentPosition[end].x,Kinect.currentPosition[end].y);  
+      Kinect.context.moveTo(Kinect.currentPosition[user][start].x,Kinect.currentPosition[user][start].y);  
+      Kinect.context.lineTo(Kinect.currentPosition[user][end].x,Kinect.currentPosition[user][end].y);  
       Kinect.context.stroke(); 
     }
   },
@@ -53,23 +54,27 @@ Kinect = {
     
     Kinect.context.clearRect(0,0,Kinect.canvas.width,Kinect.canvas.height);
         
-    Kinect.drawLimb("head", "neck");
-    Kinect.drawLimb("neck", "left_shoulder");
-    Kinect.drawLimb("left_shoulder", "left_elbow");
-    Kinect.drawLimb("left_elbow", "left_hand");
-    Kinect.drawLimb("neck", "right_shoulder");
-    Kinect.drawLimb("right_shoulder", "right_elbow");
-    Kinect.drawLimb("right_elbow", "right_hand");
+    for (i in Kinect.currentPosition) {    
+        
+    Kinect.drawLimb(i, "head", "neck");
+    Kinect.drawLimb(i, "neck", "left_shoulder");
+    Kinect.drawLimb(i, "left_shoulder", "left_elbow");
+    Kinect.drawLimb(i, "left_elbow", "left_hand");
+    Kinect.drawLimb(i, "neck", "right_shoulder");
+    Kinect.drawLimb(i, "right_shoulder", "right_elbow");
+    Kinect.drawLimb(i, "right_elbow", "right_hand");
 
-    Kinect.drawLimb("left_shoulder", "torso");
-    Kinect.drawLimb("torso", "left_hip");
-    Kinect.drawLimb("left_hip", "left_knee");
-    Kinect.drawLimb("left_knee", "left_foot");
+    Kinect.drawLimb(i, "left_shoulder", "torso");
+    Kinect.drawLimb(i, "torso", "left_hip");
+    Kinect.drawLimb(i, "left_hip", "left_knee");
+    Kinect.drawLimb(i, "left_knee", "left_foot");
 
-    Kinect.drawLimb("right_shoulder", "torso");
-    Kinect.drawLimb("torso", "right_hip");
-    Kinect.drawLimb("right_hip", "right_knee");
-    Kinect.drawLimb("right_knee", "right_foot");
+    Kinect.drawLimb(i, "right_shoulder", "torso");
+    Kinect.drawLimb(i, "torso", "right_hip");
+    Kinect.drawLimb(i, "right_hip", "right_knee");
+    Kinect.drawLimb(i, "right_knee", "right_foot");
+    
+    }
     
   }
 
