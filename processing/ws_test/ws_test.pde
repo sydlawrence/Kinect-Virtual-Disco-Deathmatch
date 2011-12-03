@@ -81,7 +81,7 @@ void draw() {
       PVector left_foot = getJoint(userId, SimpleOpenNI.SKEL_RIGHT_FOOT);
 
       String json = "{";
-        json += "{\"player\": " + userId + "},";
+        json += "\"player\": " + userId + ",";
         json += jsonJoint(head, "head") + ",";
         json += jsonJoint(neck, "neck") + ",";
         json += jsonJoint(torso, "torso") + ",";
