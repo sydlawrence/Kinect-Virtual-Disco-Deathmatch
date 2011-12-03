@@ -1,51 +1,21 @@
 /*
-  {
-    "left_elbow": {
-      "x": 455.76843,
-      "y":318.22772,
-      "z":752.74554
-    },
-    "left_hand": {
-      "x":455.76395,
-      "y":545.3215,
-      "z":752.74554
-    },
-    "left_knee": {
-      "x":598.067,
-      "y":771.2663,
-      "z":736.17126
-    },
-    "left_foot": {
-      "x":598.067,
-      "y":1112.7468,
-      "z":736.17126
-    },
-    "right_elbow": {
-      "x":684.94946,
-      "y":340.79352,
-      "z":461.77103
-    },
-    "right_hand": {
-      "x":684.9568,
-      "y":710.9852,
-      "z":461.77103
-    },
-    "right_knee": {
-      "x":779.62213,
-      "y":946.6657,
-      "z":541.7804
-    },
-    "right_foot": {
-      "x":779.62213,
-      "y":1410.6694,
-      "z":541.7804
-    },
-    "head": {
-      "x":779.62213,
-      "y":1410.6694,
-      "z":541.7804
-    }
-  }
+{
+	"head": {},
+	"neck": {},
+	"torso": {},
+	"left_shoulder": {},
+	"left_elbow": {},
+	"left_hand": {},
+	"left_hip": {},
+	"left_knee": {},
+	"left_foot": {},
+	"right_shoulder": {},
+	"right_elbow": {},
+	"right_hand": {},
+	"right_hip": {},
+	"right_knee": {},
+	"right_foot": {}
+}
 
 */
 
@@ -53,18 +23,61 @@
 Kinect = {
 
   currentPosition: undefined,
+  canvas: undefined,
+  context: undefined,
   
   parseData: function(data) {  
-    Kinect.currentPosition = data;
+    console.log(JSON.parse(data));
+    Kinect.currentPosition = JSON.parse(data);
+    Kinect.draw();
     
   },
   
+  init: function() {
+    Kinect.canvas = document.getElementById(config.kinect.canvas);
+    Kinect.context = Kinect.canvas.getContext('2d');
+    
+  },
+  
+  drawLimb: function(start, end) {
+    
+    if (Kinect.currentPosition[start] && Kinect.currentPosition[end]) {
+      Kinect.context.beginPath();      
+      Kinect.context.moveTo(Kinect.currentPosition[start].x,Kinect.currentPosition[start].y);  
+      Kinect.context.lineTo(Kinect.currentPosition[end].x,Kinect.currentPosition[end].y);  
+      Kinect.context.stroke(); 
+    }
+  },
+  
   draw: function() {
-    var canvas = document.getElementById(config.kinect.canvas);
+    
+    Kinect.context.clearRect(0,0,Kinect.canvas.width,Kinect.canvas.height);
+        
+    Kinect.drawLimb("head", "neck");
+    Kinect.drawLimb("neck", "left_shoulder");
+    Kinect.drawLimb("left_shoulder", "left_elbow");
+    Kinect.drawLimb("left_elbow", "left_hand");
+    Kinect.drawLimb("neck", "right_shoulder");
+    Kinect.drawLimb("right_shoulder", "right_elbow");
+    Kinect.drawLimb("right_elbow", "right_hand");
+
+    Kinect.drawLimb("left_shoulder", "torso");
+    Kinect.drawLimb("torso", "left_hip");
+    Kinect.drawLimb("left_hip", "left_knee");
+    Kinect.drawLimb("left_knee", "left_foot");
+
+    Kinect.drawLimb("right_shoulder", "torso");
+    Kinect.drawLimb("torso", "right_hip");
+    Kinect.drawLimb("right_hip", "right_knee");
+    Kinect.drawLimb("right_knee", "right_foot");
+    
   }
 
 }
+$(document).ready(function() {
+  Kinect.init();
 
+})
 
 
 
