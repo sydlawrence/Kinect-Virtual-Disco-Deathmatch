@@ -1,0 +1,27 @@
+<script>
+var conn = {
+
+};
+
+openConnection = function() {
+
+  if (conn.readyState === undefined || conn.readyState > 1) {
+    conn = new MozWebSocket('ws://mb.local:8080/p5websocket');    
+    conn.onopen = function () {
+      alert("socket open");
+    };
+
+    conn.onmessage = function (event) {
+      console.log(event);
+      alert("message "+event.data);
+    
+    };
+    
+    conn.onclose = function (event) {
+      console.log(event);
+      alert("socket closed");
+    };
+  }
+}
+openConnection();
+</script>
