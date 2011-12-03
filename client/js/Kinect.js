@@ -23,38 +23,40 @@
 Kinect = {
 
   currentPosition: {},
+  skeletons: {},
   canvas: undefined,
   context: undefined,
-  
-  parseData: function(data) {  
-  
+
+  parseData: function(data) {
+
     Kinect.currentPosition[data.player] = data;
+    Kinect.skeletons[data.player] = new Skeleton(data);
     Kinect.draw();
-    
+
   },
-  
+
   init: function() {
     Kinect.canvas = document.getElementById(config.kinect.canvas);
     Kinect.context = Kinect.canvas.getContext('2d');
-    
+
   },
-  
+
   drawLimb: function(user, start, end) {
-    
+
     if (Kinect.currentPosition[user][start] && Kinect.currentPosition[user][end]) {
-      Kinect.context.beginPath();      
-      Kinect.context.moveTo(Kinect.currentPosition[user][start].x,Kinect.currentPosition[user][start].y);  
-      Kinect.context.lineTo(Kinect.currentPosition[user][end].x,Kinect.currentPosition[user][end].y);  
-      Kinect.context.stroke(); 
+      Kinect.context.beginPath();
+      Kinect.context.moveTo(Kinect.currentPosition[user][start].x,Kinect.currentPosition[user][start].y);
+      Kinect.context.lineTo(Kinect.currentPosition[user][end].x,Kinect.currentPosition[user][end].y);
+      Kinect.context.stroke();
     }
   },
-  
+
   draw: function() {
-    
+
     Kinect.context.clearRect(0,0,Kinect.canvas.width,Kinect.canvas.height);
-        
-    for (i in Kinect.currentPosition) {    
-        
+
+    for (i in Kinect.currentPosition) {
+
     Kinect.drawLimb(i, "head", "neck");
     Kinect.drawLimb(i, "neck", "left_shoulder");
     Kinect.drawLimb(i, "left_shoulder", "left_elbow");
@@ -72,9 +74,9 @@ Kinect = {
     Kinect.drawLimb(i, "torso", "right_hip");
     Kinect.drawLimb(i, "right_hip", "right_knee");
     Kinect.drawLimb(i, "right_knee", "right_foot");
-    
+
     }
-    
+
   }
 
 }
@@ -89,6 +91,7 @@ $(document).bind("websocket.message",function(e,data) {
   data = data.event.data;
   data = JSON.parse(data);
   if (!data.status) {
+    $(document).trigger("kinect.calibrated");
     Kinect.parseData(data);
   } else {
     if (data.status === "calibrated") {

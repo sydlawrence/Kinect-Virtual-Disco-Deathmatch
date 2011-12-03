@@ -7,15 +7,15 @@ song1 = {
   },
   moves: {
     5: {
-      move: Dance_RightHandAir,
+      move: Dance_LeftHandAir,
       allowedDuration: 3000,
     },
-    20: {
+    10: {
       move: Dance_LeftHandAir,
       allowedDuration: 1000,
     }
-  
+
   }
-  
+
 
 }
