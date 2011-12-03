@@ -2,7 +2,6 @@
 import muthesius.net.*;
 import org.webbitserver.*;
 import SimpleOpenNI.*;
-//import org.json.*;
 
 SimpleOpenNI kinect;
 WebSocketP5 socket;
@@ -62,40 +61,41 @@ void draw() {
       fill(255, 255, 255);
 
       PVector head = getJoint(userId, SimpleOpenNI.SKEL_HEAD);
-      drawJoint(head, 40);
-
       PVector neck = getJoint(userId, SimpleOpenNI.SKEL_NECK);
-      drawJoint(neck, 5);
-
       PVector torso = getJoint(userId, SimpleOpenNI.SKEL_TORSO);
-      PVector left_shoulder = getJoint(userId, SimpleOpenNI.SKEL_LEFT_SHOULDER);
-      PVector left_elbow = getJoint(userId, SimpleOpenNI.SKEL_LEFT_ELBOW);
-      PVector left_hand = getJoint(userId, SimpleOpenNI.SKEL_LEFT_HAND);
-      PVector left_hip = getJoint(userId, SimpleOpenNI.SKEL_LEFT_HIP);
-      PVector left_knee = getJoint(userId, SimpleOpenNI.SKEL_LEFT_KNEE);
-      PVector left_foot = getJoint(userId, SimpleOpenNI.SKEL_LEFT_FOOT);
-      PVector right_shoulder = getJoint(userId, SimpleOpenNI.SKEL_RIGHT_SHOULDER);
-      PVector right_elbow = getJoint(userId, SimpleOpenNI.SKEL_RIGHT_ELBOW);
-      PVector right_hand = getJoint(userId, SimpleOpenNI.SKEL_RIGHT_HAND);
-      PVector right_hip = getJoint(userId, SimpleOpenNI.SKEL_RIGHT_HIP);
-      PVector right_knee = getJoint(userId, SimpleOpenNI.SKEL_RIGHT_KNEE);
-      PVector right_foot = getJoint(userId, SimpleOpenNI.SKEL_RIGHT_FOOT);
+
+      // intentinally backward
+      PVector right_shoulder = getJoint(userId, SimpleOpenNI.SKEL_LEFT_SHOULDER);
+      PVector right_elbow = getJoint(userId, SimpleOpenNI.SKEL_LEFT_ELBOW);
+      PVector right_hand = getJoint(userId, SimpleOpenNI.SKEL_LEFT_HAND);
+      PVector right_hip = getJoint(userId, SimpleOpenNI.SKEL_LEFT_HIP);
+      PVector right_knee = getJoint(userId, SimpleOpenNI.SKEL_LEFT_KNEE);
+      PVector right_foot = getJoint(userId, SimpleOpenNI.SKEL_LEFT_FOOT);
+
+      // intentinally backward
+      PVector left_shoulder = getJoint(userId, SimpleOpenNI.SKEL_RIGHT_SHOULDER);
+      PVector left_elbow = getJoint(userId, SimpleOpenNI.SKEL_RIGHT_ELBOW);
+      PVector left_hand = getJoint(userId, SimpleOpenNI.SKEL_RIGHT_HAND);
+      PVector left_hip = getJoint(userId, SimpleOpenNI.SKEL_RIGHT_HIP);
+      PVector left_knee = getJoint(userId, SimpleOpenNI.SKEL_RIGHT_KNEE);
+      PVector left_foot = getJoint(userId, SimpleOpenNI.SKEL_RIGHT_FOOT);
 
       String json = "{";
-      json += jsonJoint(head, "head", false);
-      json += jsonJoint(torso, "torso", false);
-      json += jsonJoint(left_shoulder, "left_shoulder", false);
-      json += jsonJoint(left_elbow, "left_elbow", false);
-      json += jsonJoint(left_hand, "left_hand", false);
-      json += jsonJoint(left_hip, "left_hip", false);
-      json += jsonJoint(left_knee, "left_knee", false);
-      json += jsonJoint(left_foot, "left_foot", false);
-      json += jsonJoint(right_shoulder, "right_shoulder", false);
-      json += jsonJoint(right_elbow, "right_elbow", false);
-      json += jsonJoint(right_hand, "right_hand", false);
-      json += jsonJoint(right_hip, "right_hip", false);
-      json += jsonJoint(right_knee, "right_knee", false);
-      json += jsonJoint(right_foot, "right_foot", true);
+        json += jsonJoint(head, "head") + ",";
+        json += jsonJoint(neck, "neck") + ",";
+        json += jsonJoint(torso, "torso") + ",";
+        json += jsonJoint(left_shoulder, "left_shoulder") + ",";
+        json += jsonJoint(left_elbow, "left_elbow") + ",";
+        json += jsonJoint(left_hand, "left_hand") + ",";
+        json += jsonJoint(left_hip, "left_hip") + ",";
+        json += jsonJoint(left_knee, "left_knee") + ",";
+        json += jsonJoint(left_foot, "left_foot") + ",";
+        json += jsonJoint(right_shoulder, "right_shoulder") + ",";
+        json += jsonJoint(right_elbow, "right_elbow") + ",";
+        json += jsonJoint(right_hand, "right_hand") + ",";
+        json += jsonJoint(right_hip, "right_hip") + ",";
+        json += jsonJoint(right_knee, "right_knee") + ",";
+        json += jsonJoint(right_foot, "right_foot");
       json += "}";
 
       socket.broadcast(json);
@@ -117,14 +117,13 @@ PVector getJoint(int userId, int jointId) {
   return convertedJoint;
 }
 
-String jsonJoint(PVector joint, String name, boolean last) {
-  if( joint == null )
-    return "";
+String jsonJoint(PVector joint, String name) {
+  String json = "\"" + name + "\":" + "{";
 
-  String json = "\"" + name + "\":" + "{\"x\":" + joint.x + ",\"y\":" + joint.y + ",\"z\":" + joint.z + "}";
-  if( !last )
-    json += ",";
+  if( joint != null )
+    json += "\"x\":" + joint.x + ",\"y\":" + joint.y + ",\"z\":" + joint.z;
 
+  json += "}";
   return json;
 }
 
@@ -144,6 +143,7 @@ void onNewUser(int userId) {
 void onEndCalibration(int userId, boolean successful) {
   if( successful ) {
     println("  user calibrated!");
+    socket.broadcast("{\"status\": \"calibrated\"}");
     kinect.startTrackingSkeleton(userId);
   } else {
     println( " failed to calibrate");
