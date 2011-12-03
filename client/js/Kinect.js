@@ -57,10 +57,10 @@ Kinect = {
   parseData: function(data) {  
     Kinect.currentPosition = data;
     
-  }
+  },
   
   draw: function() {
-  
+    var canvas = document.getElementById(config.kinect.canvas);
   }
 
 }
