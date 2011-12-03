@@ -15,11 +15,9 @@ openConnection = function() {
 
     conn.onmessage = function (event) {
       $(document).trigger("websocket.message",{event:event});
-      console.log(event.data);    
     };
     
     conn.onclose = function (event) {
-      console.log(event);
       alert("socket closed");
     };
   }

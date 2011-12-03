@@ -174,9 +174,10 @@ start = function() {
     Dance_LeftHandAir.isValid();
     t = setTimeout("Dance_RightHandAir.isValid()",7000);
     t2 = setTimeout("Dance_BothHandAir.isValid()",14000);
+    time = 0;
     
   }
   time++;
 }
 
-startInterval = setInterval("start()",1000);
+

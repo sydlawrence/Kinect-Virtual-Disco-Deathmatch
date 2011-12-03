@@ -1,5 +1,5 @@
 <!-- GHETTO, but custom events are easier -->
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
 
 
 <script src="js/Config.js"></script>
@@ -12,7 +12,9 @@
 
 
 <canvas id="kinectCanvas" width=640 height=480></canvas>
-
+<div style="position:absolute;right:0;top:0;">
+  <button onclick="$('#log').html('');startInterval = setInterval('start()',1000);">Start</button>
+</div>
 <pre id="log"></pre>
 
 
