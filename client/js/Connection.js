@@ -13,7 +13,7 @@ openConnection = function() {
 
     };
 
-    conn.onmessage = function (event) {
+    conn.onmessage = function (event) { 
       $(document).trigger("websocket.message",{event:event});
     };
     

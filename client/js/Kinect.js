@@ -28,7 +28,6 @@ Kinect = {
   
   parseData: function(data) {  
   
-    var data = JSON.parse(data);
     Kinect.currentPosition[data.player] = data;
     Kinect.draw();
     
@@ -87,11 +86,20 @@ $(document).ready(function() {
 
 
 $(document).bind("websocket.message",function(e,data) {
-
+  data = data.event.data;
+  data = JSON.parse(data);
   if (!data.status) {
-    Kinect.parseData(data.event.data);
+    Kinect.parseData(data);
   } else {
+    if (data.status === "calibrated") {
+      $(document).trigger("kinect.calibrated");
+    }
     console.log(data.status);
   }
 
+});
+
+
+$(document).bind("kinect.calibrated",function() {
+  $('body').addClass("calibrated");
 });
