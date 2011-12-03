@@ -1,10 +1,3 @@
-<script>
-var conn = {
-
-};
-
-console.log = console.dir;
-
 // let's invite Firefox to the party.
 if (window.MozWebSocket) {
   window.WebSocket = window.MozWebSocket;
@@ -13,14 +6,13 @@ if (window.MozWebSocket) {
 openConnection = function() {
 
   if (conn.readyState === undefined || conn.readyState > 1) {
-    conn = new WebSocket('ws://Syds-MacBook-Air.local:8080/p5websocket');    
+    conn = new WebSocket('ws://mb.local:8080/p5websocket');    
     conn.onopen = function () {
       alert("socket open");
     };
 
     conn.onmessage = function (event) {
-      console.log(event.data);
-    
+      console.log(event.data);    
     };
     
     conn.onclose = function (event) {
@@ -30,4 +22,3 @@ openConnection = function() {
   }
 }
 openConnection();
-</script>

@@ -52,7 +52,6 @@ void draw() {
       fill(0, 0, 255);
       ellipse(convertedLeftHand.x, convertedLeftHand.y, 10, 10);
 
-      socket.broadcast("hello from processing!");
       socket.broadcast(convertedLeftHand.x + "," + convertedLeftHand.y + " " + convertedRightHand.x + "," + convertedRightHand.y);
 
       /*
