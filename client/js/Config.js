@@ -6,6 +6,9 @@ var config = {
     path: "p5websocket",
   },
   
+  kinect: {
+    canvas: "kinectCanvas"
+  }
   
   
   

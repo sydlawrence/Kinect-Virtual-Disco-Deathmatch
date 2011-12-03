@@ -48,37 +48,9 @@ Dance = function(settings) {
 
 
 
-Dance_LeftHandAir = new Dance({
-  
-  title:"Right hand in air",
-  
-  bounds: [
-    [0,0],
-    [160,160]
-  ],
-    
-  allowedDuration: 5000,
-  
-  positionTest: function() {
-  
-    var data = Kinect.currentPosition;
-
-    if (data && data.hands && data.hands[1].x > this.bounds[0][0]
-      && data.hands[1].x < this.bounds[1][0]
-      && data.hands[1].y > this.bounds[0][1]
-      && data.hands[1].y < this.bounds[1][1]
-    ) {
-      this.success();
-    } else {
-      this.fail();      
-    }
-  
-  }
-});
-
 Dance_RightHandAir = new Dance({
   
-  title:"Left hand in air",
+  title:"Right hand in air",
   
   bounds: [
     [500,0],
@@ -91,10 +63,38 @@ Dance_RightHandAir = new Dance({
   
     var data = Kinect.currentPosition;
 
-    if (data && data.hands && data.hands[0].x > this.bounds[0][0]
-      && data.hands[0].x < this.bounds[1][0]
-      && data.hands[0].y > this.bounds[0][1]
-      && data.hands[0].y < this.bounds[1][1]
+    if (data && data.right_hand && data.right_hand.x > this.bounds[0][0]
+      && data.right_hand.x < this.bounds[1][0]
+      && data.right_hand.y > this.bounds[0][1]
+      && data.right_hand.y < this.bounds[1][1]
+    ) {
+      this.success();
+    } else {
+      this.fail();      
+    }
+  
+  }
+});
+
+Dance_LeftHandAir = new Dance({
+  
+  title:"Left hand in air",
+  
+  bounds: [
+    [0,0],
+    [160,160]
+  ],
+    
+  allowedDuration: 5000,
+  
+  positionTest: function() {
+  
+    var data = Kinect.currentPosition;
+
+    if (data && data.left_hand && data.left_hand.x > this.bounds[0][0]
+      && data.left_hand.x < this.bounds[1][0]
+      && data.left_hand.y > this.bounds[0][1]
+      && data.left_hand.y < this.bounds[1][1]
     ) {
       this.success();
     } else {
@@ -123,15 +123,16 @@ Dance_BothHandAir = new Dance({
   
     var data = Kinect.currentPosition;
 
-    if (data && data.hands && data.hands[1].x > this.bounds[0][0]
-      && data.hands[1].x < this.bounds[1][0]
-      && data.hands[1].y > this.bounds[0][1]
-      && data.hands[1].y < this.bounds[1][1]
+    if (data && data.right_hand && data.left_hand
+      && data.left_hand.x > this.bounds[0][0]
+      && data.left_hand.x < this.bounds[1][0]
+      && data.left_hand.y > this.bounds[0][1]
+      && data.left_hand.y < this.bounds[1][1]
       
-      && data.hands[0].x > this.bounds[2][0]
-      && data.hands[0].x < this.bounds[3][0]
-      && data.hands[0].y > this.bounds[2][1]
-      && data.hands[0].y < this.bounds[3][1]
+      && data.right_hand.x > this.bounds[2][0]
+      && data.right_hand.x < this.bounds[3][0]
+      && data.right_hand.y > this.bounds[2][1]
+      && data.right_hand.y < this.bounds[3][1]
     ) {
       this.success();
     } else {
