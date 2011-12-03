@@ -18,7 +18,7 @@ openConnection = function() {
     };
     
     conn.onclose = function (event) {
-      alert("socket closed");
+      console.log("socket closed");
     };
   }
 }

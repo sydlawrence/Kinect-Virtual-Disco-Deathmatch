@@ -2,14 +2,22 @@ Dance = function(settings) {
  
   this.title = "Some dance";
   this.picture = "";
+    
+  this.score = 5;
   
-  this.timeout = undefined;
+  this.timeouts = [];
   this.startTime = 0;
   this.endTime = 0;
   this.allowedDuration = 2000; // milliseconds
     
-  this.isValid = function() {
+  this.positionTest = function(user) {
+    this.success(user);
+  }  
     
+  this.isValid = function(allowedDuration) {
+    if (allowedDuration) {
+      this.allowedDuration = allowedDuration;
+    }
     log(this.title);
     
     currentDance = this;    
@@ -17,22 +25,25 @@ Dance = function(settings) {
     this.startTime = this.startTime.getTime();
     this.endTime = this.startTime + this.allowedDuration;
     
-    this.timeout = setInterval("currentDance.positionTest()",50);
-    
+    for (var i = 0; i < Game.userCount; i++) {
+      this.timeouts[i] = setInterval("currentDance.positionTest("+i+")",50);
+    }
+        
   }
   
-  this.fail = function() {
+  this.fail = function(user) {
+  
     var now = new Date();
     now = now.getTime();
     if (now > this.endTime) {
-      clearInterval(this.timeout);
-      $(document).trigger("dance.fail",{dance:this});
+      clearInterval(this.timeouts[user]);
+      $(document).trigger("dance.fail",{dance:this,user:user});
     }
   }
   
-  this.success = function() {
-    clearInterval(this.timeout);
-    $(document).trigger("dance.success",{dance:this});
+  this.success = function(user) {
+    clearInterval(this.timeouts[user]);
+    $(document).trigger("dance.success",{dance:this,user:user});
   }
     
   for (i in settings) {
@@ -57,9 +68,9 @@ Dance_RightHandAir = new Dance({
     [640,160]
   ],
     
-  allowedDuration: 5000,
+  allowedDuration: 500,
   
-  positionTest: function() {
+  positionTest: function(user) {
   
     var data = Kinect.currentPosition;
 
@@ -68,9 +79,9 @@ Dance_RightHandAir = new Dance({
       && data.right_hand.y > this.bounds[0][1]
       && data.right_hand.y < this.bounds[1][1]
     ) {
-      this.success();
+      this.success(user);
     } else {
-      this.fail();      
+      this.fail(user);      
     }
   
   }
@@ -87,7 +98,7 @@ Dance_LeftHandAir = new Dance({
     
   allowedDuration: 5000,
   
-  positionTest: function() {
+  positionTest: function(user) {
   
     var data = Kinect.currentPosition;
 
@@ -96,9 +107,9 @@ Dance_LeftHandAir = new Dance({
       && data.left_hand.y > this.bounds[0][1]
       && data.left_hand.y < this.bounds[1][1]
     ) {
-      this.success();
+      this.success(user);
     } else {
-      this.fail();      
+      this.fail(user);      
     }
   
   }
@@ -119,7 +130,7 @@ Dance_BothHandAir = new Dance({
     
   allowedDuration: 5000,
   
-  positionTest: function() {
+  positionTest: function(user) {
   
     var data = Kinect.currentPosition;
 
@@ -134,50 +145,10 @@ Dance_BothHandAir = new Dance({
       && data.right_hand.y > this.bounds[2][1]
       && data.right_hand.y < this.bounds[3][1]
     ) {
-      this.success();
+      this.success(user);
     } else {
-      this.fail();      
+      this.fail(user);      
     }
   
   }
 });
-
-
-
-
-
-
-
-
-$(document).bind("dance.success",function(evt,e) {
-  console.log(e);
-  log("<span style='color:#0f0'>successful dance move: "+e.dance.title+"</span>");
-});
-
-$(document).bind("dance.fail",function(evt,e) {
-  console.log(e);
-  log("<span style='color:#f00'>unsuccessful dance move: "+e.dance.title+"</span>");
-});
-
-
-
-
-var time = 0;
-var waitTime = 3;
-var startInterval;
-
-start = function() {
-  log(time)
-  if (time == waitTime) {
-    clearInterval(startInterval);
-    log("Start!");
-    Dance_LeftHandAir.isValid();
-    t = setTimeout("Dance_RightHandAir.isValid()",7000);
-    t2 = setTimeout("Dance_BothHandAir.isValid()",14000);
-    time = 0;
-    
-  }
-  time++;
-}
-
-

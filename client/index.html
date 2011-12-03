@@ -1,30 +1,22 @@
 <!-- GHETTO, but custom events are easier -->
 <script type="text/javascript" src="js/jquery.js"></script>
 
+<script src="js/TestData.js"></script>
 
 <script src="js/Config.js"></script>
 <script src="js/Tools.js"></script>
 <script src="js/Connection.js"></script>
 <script src="js/Kinect.js"></script>
+
+<script src="js/Game.js"></script>
 <script src="js/Dance.js"></script>
 <script src="js/Routine.js"></script>
 
 <script src="js/Song1.js"></script>
 
-
 <script src="js/Song.js"></script>
 
-
-
-
 <script src="js/script.js"></script>
-
-
-<canvas id="kinectCanvas" width=640 height=480></canvas>
-<div style="position:absolute;right:0;top:0;">
-  <button onclick="$('#log').html('');startInterval = setInterval('start()',1000);">Start</button>
-</div>
-<pre id="log"></pre>
 
 
 
@@ -49,3 +41,15 @@ body.calibrated {
 }
 
 </style>
+
+<canvas id="kinectCanvas" width=640 height=480></canvas>
+<div style="position:absolute;right:0;top:0;">
+  <button onclick="$(document).trigger('game.start')">Start</button>
+  <button onclick="$(document).trigger('game.stop')">Stop</button>
+  <div id="score">Score: <span class="values">0</span></div>
+</div>
+<pre id="log"></pre>
+<div id="trackTime"></div>
+
+
+
