@@ -30,8 +30,8 @@ void draw() {
   IntVector userList = new IntVector();
   kinect.getUsers(userList);
 
-  if( userList.size() > 0 ) {
-    int userId = userList.get(0);
+  for( int i = 0 ; i < userList.size() ; i++ ) {
+    int userId = userList.get(i);
 
     if( kinect.isTrackingSkeleton(userId) ) {
       stroke(255, 0, 255);
@@ -81,6 +81,7 @@ void draw() {
       PVector left_foot = getJoint(userId, SimpleOpenNI.SKEL_RIGHT_FOOT);
 
       String json = "{";
+        json += "{\"player\": " + userId + "},";
         json += jsonJoint(head, "head") + ",";
         json += jsonJoint(neck, "neck") + ",";
         json += jsonJoint(torso, "torso") + ",";
