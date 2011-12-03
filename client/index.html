@@ -1,33 +1,30 @@
-<script>
-var conn = {
+<!-- GHETTO, but custom events are easier -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
-};
 
-console.log = console.dir;
+<script src="js/Config.js"></script>
+<script src="js/Tools.js"></script>
+<script src="js/Connection.js"></script>
+<script src="js/Kinect.js"></script>
+<script src="js/Dance.js"></script>
+<script src="js/Routine.js"></script>
+<script src="js/script.js"></script>
 
-// let's invite Firefox to the party.
-if (window.MozWebSocket) {
-  window.WebSocket = window.MozWebSocket;
+
+<div id="kinectData">
+
+
+</div>
+
+<pre id="log"></pre>
+
+
+
+
+<style>
+#kinectData {
+  font-size:30px;
+  background:#fff;
 }
 
-openConnection = function() {
-
-  if (conn.readyState === undefined || conn.readyState > 1) {
-    conn = new WebSocket('ws://Syds-MacBook-Air.local:8080/p5websocket');    
-    conn.onopen = function () {
-      alert("socket open");
-    };
-
-    conn.onmessage = function (event) {
-      console.log(event.data);
-    
-    };
-    
-    conn.onclose = function (event) {
-      console.log(event);
-      alert("socket closed");
-    };
-  }
-}
-openConnection();
-</script>
+</style>

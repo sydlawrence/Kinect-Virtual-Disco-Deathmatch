@@ -1,13 +1,13 @@
 var config = {
   
   socket: {
-    hostname: "",
-    port: "",
-    
-  }
-
-
-
-
-
-}
+    hostname: "Syds-MacBook-Air.local",
+    port: "8080",
+    path: "p5websocket",
+  },
+  
+  
+  
+  
+  
+};
