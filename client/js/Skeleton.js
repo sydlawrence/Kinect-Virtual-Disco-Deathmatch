@@ -59,29 +59,13 @@ Skeleton = function(data) {
   }
 
   this.leftFootUp = function() {
-    return this.footAboveOtherFoot("left", "right"); // && this.kneeAboveOtherKnee("left", "right");
+    return this.footAboveOtherFoot("left", "right");
   }
 
   this.rightFootUp = function() {
-    return this.footAboveOtherFoot("right", "left"); // && this.kneeAboveOtherKnee("right", "left");
+    return this.footAboveOtherFoot("right", "left");
   }
 
   return this;
 };
 
-/*
-$(document).ready(function() {
-  var player = new Skeleton(left_arm_up);
-  console.log(player.leftArmUp());
-  console.log(player.rightArmUp());
-
-  player = new Skeleton(right_arm_up);
-  console.log(player.leftArmUp());
-  console.log(player.rightArmUp());
-
-  player = new Skeleton(left_foot_up);
-  console.log(player.leftArmUp());
-  console.log(player.rightArmUp());
-
-});
-*/
