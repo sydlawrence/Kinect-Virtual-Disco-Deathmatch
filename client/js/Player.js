@@ -2,6 +2,7 @@
 Player = function(userId) {
   this.userId = userId;
   this.skeleton = undefined;
+  this.data = undefined;
   this.score = 0;
   this.timeout = undefined;
   this.dance = undefined;
@@ -9,6 +10,7 @@ Player = function(userId) {
 
   this.track = function(data) {
     this.skeleton = new Skeleton(data);
+    this.data = data;
   }
 
   this.name = function() {
@@ -45,7 +47,39 @@ Player = function(userId) {
     //console.log("player " + this.userId + " success");
     $(document).trigger("dance.success", {dance:this.dance, player:this});
   }
-  return this;
 
+  this.drawLimb = function(context, start, end) {
+    if( this.data[start] && this.data[end] ) {
+      var from = this.data[start], to = this.data[end];
+      context.strokeStyle = '#fff'; // red
+      context.lineWidth = 6;
+      context.beginPath();
+      context.moveTo(from.x, from.y);
+      context.lineTo(to.x, to.y);
+      context.stroke();
+    }
+  }
+
+  this.draw = function(context) {
+    this.drawLimb(context, "head", "neck");
+    this.drawLimb(context, "neck", "left_shoulder");
+    this.drawLimb(context, "left_shoulder", "left_elbow");
+    this.drawLimb(context, "left_elbow", "left_hand");
+    this.drawLimb(context, "neck", "right_shoulder");
+    this.drawLimb(context, "right_shoulder", "right_elbow");
+    this.drawLimb(context, "right_elbow", "right_hand");
+
+    this.drawLimb(context, "left_shoulder", "torso");
+    this.drawLimb(context, "torso", "left_hip");
+    this.drawLimb(context, "left_hip", "left_knee");
+    this.drawLimb(context, "left_knee", "left_foot");
+
+    this.drawLimb(context, "right_shoulder", "torso");
+    this.drawLimb(context, "torso", "right_hip");
+    this.drawLimb(context, "right_hip", "right_knee");
+    this.drawLimb(context, "right_knee", "right_foot");
+  }
+
+  return this;
 }
 
