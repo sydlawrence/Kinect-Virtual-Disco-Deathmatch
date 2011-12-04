@@ -27,6 +27,7 @@
   border:1px solid #000;
   position:absolute;
   z-index:-1;
+  -webkit-transform:scaleX(-1);
 }
 
 body {
@@ -34,7 +35,6 @@ body {
   -webkit-transition:background 200ms linear;
   -moz-transition:background 200ms linear;
   transition:background 200ms linear;
-
 }
 
 body.calibrated {
@@ -48,9 +48,7 @@ body.calibrated {
   <button onclick="$(document).trigger('game.start')">Start</button>
   <button onclick="$(document).trigger('game.stop')">Stop</button>
   <div id="score">Score: <span class="values">0</span></div>
+  <div id="trackTime"></div>
 </div>
 <pre id="log"></pre>
-<div id="trackTime"></div>
-
-
 

@@ -25,7 +25,7 @@ Dance = function(settings) {
     this.startTime = this.startTime.getTime();
     this.endTime = this.startTime + this.allowedDuration;
 
-    for (var i = 0; i < Game.userCount; i++) {
+    for (i in Game.users) {
       this.timeouts[i] = setInterval("currentDance.positionTest("+i+")",50);
     }
 
@@ -63,22 +63,9 @@ Dance_RightHandAir = new Dance({
 
   title:"Right hand in air",
 
-  bounds: [
-    [500,0],
-    [640,160]
-  ],
-
-  allowedDuration: 500,
-
   positionTest: function(user) {
 
-    var data = Kinect.currentPosition;
-
-    if (data && data.right_hand && data.right_hand.x > this.bounds[0][0]
-      && data.right_hand.x < this.bounds[1][0]
-      && data.right_hand.y > this.bounds[0][1]
-      && data.right_hand.y < this.bounds[1][1]
-    ) {
+    if(Kinect.skeletons[user].rightArmUp() ) {
       this.success(user);
     } else {
       this.fail(user);
@@ -91,36 +78,13 @@ Dance_LeftHandAir = new Dance({
 
   title:"Left hand in air",
 
-  bounds: [
-    [0,0],
-    [160,160]
-  ],
-
-  allowedDuration: 5000,
-
   positionTest: function(user) {
 
-    for( i in Kinect.skeletons ) {
-      if(Kinect.skeletons[i].leftArmUp() ) {
-        this.success(i);
-      } else {
-        this.fail(i);
-      }
-    }
-    /*
-    var data = Kinect.currentPosition;
-
-    if (data && data.left_hand && data.left_hand.x > this.bounds[0][0]
-      && data.left_hand.x < this.bounds[1][0]
-      && data.left_hand.y > this.bounds[0][1]
-      && data.left_hand.y < this.bounds[1][1]
-    ) {
+    if(Kinect.skeletons[user].leftArmUp() ) {
       this.success(user);
     } else {
       this.fail(user);
     }
-    */
-
   }
 });
 
@@ -129,35 +93,58 @@ Dance_BothHandAir = new Dance({
 
   title:"Both hands in air",
 
-  bounds: [
-    [0,0],
-    [160,160],
+  positionTest: function(user) {
 
-    [500,0],
-    [640,160]
-  ],
+    if(Kinect.skeletons[user].leftArmUp() && Kinect.skeletons[user].rightArmUp() ) {
+      this.success(user);
+    } else {
+      this.fail(user);
+    }
+  }
+});
 
-  allowedDuration: 5000,
+Dance_RightFootAir = new Dance({
+
+  title:"Right foot in air",
 
   positionTest: function(user) {
 
-    var data = Kinect.currentPosition;
-
-    if (data && data.right_hand && data.left_hand
-      && data.left_hand.x > this.bounds[0][0]
-      && data.left_hand.x < this.bounds[1][0]
-      && data.left_hand.y > this.bounds[0][1]
-      && data.left_hand.y < this.bounds[1][1]
-
-      && data.right_hand.x > this.bounds[2][0]
-      && data.right_hand.x < this.bounds[3][0]
-      && data.right_hand.y > this.bounds[2][1]
-      && data.right_hand.y < this.bounds[3][1]
-    ) {
+    if(Kinect.skeletons[user].rightFootUp() ) {
       this.success(user);
     } else {
       this.fail(user);
     }
 
   }
+});
+
+Dance_LeftFootAir = new Dance({
+
+  title:"Left foot in air",
+
+  positionTest: function(user) {
+
+    if(Kinect.skeletons[user].leftFootUp() ) {
+      this.success(user);
+    } else {
+      this.fail(user);
+    }
+  }
+});
+
+
+Dance_LeftLegBothArms = new Dance({
+
+  title:"Left leg, both arms in air",
+
+  positionTest: function(user) {
+
+    if( Kinect.skeletons[user].leftFootUp() && Kinect.skeletons[user].leftArmUp() && Kinect.skeletons[user].rightArmUp() ) {
+      this.success(user);
+    } else {
+      this.fail(user);
+    }
+
+  }
+
 });

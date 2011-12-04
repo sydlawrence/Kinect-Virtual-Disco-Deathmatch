@@ -4,6 +4,8 @@ Game = {
   
   userCount: 1,
   
+  users:[],
+    
   isRunning: false,
   
   addScore: function(key, value) {
@@ -20,10 +22,14 @@ Game = {
 
   // called to start a new game
   start: function(userCount) {
+   
+    Game.users = [];
+  
     if (Game.isRunning) {
       alert("Game is already running");
       return;
     }
+    Game.isRunning = true;
   
     this.userCount = userCount;
     
@@ -43,7 +49,6 @@ Game = {
   begin: function() {
     log("Start!");
     $(document).trigger("game.begin");
-    Game.isRunning = true;
     Song.play(song1);
   },
   
@@ -75,7 +80,7 @@ Game = {
 }
 
 $(document).bind("game.start",function() {
-  Game.start(1);
+  Game.start(2);
 });
 
 $(document).bind("game.stop",function() {
@@ -88,12 +93,15 @@ $(document).bind("game.updateScores",function() {
 
 $(document).bind("dance.success",function(evt,e) {
   Game.addScore(e.user,e.dance.score);
-  log("<span style='color:#0f0'>User "+e.user+" successful dance move: "+e.dance.title+"</span>");
+  
+  log("<span style='color:#0f0;'>User "+e.user+" successful dance move: "+e.dance.title+"</span>");
 });
 
 $(document).bind("dance.fail",function(evt,e) {
   //Game.addScore(e.dance.user,0);
-  log("<span style='color:#f00'>User "+e.user+" unsuccessful dance move: "+e.dance.title+"</span>");
+  
+  
+  log("<span style='color:#f00;'>User "+e.user+" unsuccessful dance move: "+e.dance.title+"</span>");
 });
 
 
