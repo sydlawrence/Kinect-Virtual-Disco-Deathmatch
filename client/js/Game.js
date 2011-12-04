@@ -144,7 +144,14 @@ $(document).bind("game.stop",function() {
 });
 
 $(document).bind("game.updateScores",function() {
-  $('#score .values').html(Game.scores.join(", "));
+
+  for (var i = 0; i < Game.players.length; i++) {
+    if (true) {
+      $('#score_right').html(Game.players[i].score);
+    } else {
+      $('#score_left').html(Game.players[i].score);
+    }
+  }  
 });
 
 $(document).bind("dance.success",function(evt,e) {
