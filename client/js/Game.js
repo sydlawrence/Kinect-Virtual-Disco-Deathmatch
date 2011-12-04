@@ -41,7 +41,7 @@ Game = {
   },
 
   loadSamples: function() {
-    Game.registerMusic("music", "songs/1.mp3");
+    Game.registerMusic("music", song1.track.mp3);
     Game.registerSample("dff", "songs/dff.mp3");
     Game.registerSample("finishHim", "songs/a6f563_Mortal_Kombat_3_Finish_Him_Sound_Effect.mp3");
     Game.registerSample("fight", "songs/10d604_Street_Fighter_Fight_Sound_Effect.mp3");
@@ -192,13 +192,18 @@ $(document).bind("game.updateScores",function() {
         },5);
       }
     }
+    
+    if (!Game.isRunning) {
+      return;
+    }
     update_score(el,Game.players[i].score);
     
-    if (Game.players[i].score >= 5000) {
+    if (Game.players[i].score >= 3000) {
+    
+      $(document).trigger("game.stop");
+      soundManager.stopAll();
       Game.playSound("finishHim");
-    
-    
-      $(document).bind("game.stop");
+
       
       str = "Player 1 Wins!";
       if (Game.players[i].isRight()) {
