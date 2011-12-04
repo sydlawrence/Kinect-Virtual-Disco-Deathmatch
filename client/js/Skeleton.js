@@ -17,8 +17,20 @@ Skeleton = function(data) {
     return this.joints[side + "_hand"].y < this.joints[side + "_elbow"].y;
   }
 
+  this.handBelowKnee = function(side) {
+    return this.joints[side + "_hand"].y > this.joints[side + "_knee"].y;
+  }
+
   this.elbowAboveShoulder = function(side) {
     return this.joints[side + "_elbow"].y < this.joints[side + "_shoulder"].y;
+  }
+
+  this.bankLeft = function() {
+    return this.handBelowKnee("left") && this.handAboveElbow("right");
+  }
+
+  this.bankRight = function() {
+    return this.handBelowKnee("right") && this.handAboveElbow("left");
   }
 
   this.kneeAboveOtherKnee = function(knee, other) {

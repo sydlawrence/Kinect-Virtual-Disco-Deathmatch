@@ -38,7 +38,7 @@ Player = function(userId) {
       }
     }
 
-    return this.userId = rightMostUserId;
+    return this.userId == rightMostUserId;
   }
 
   this.name = function() {
