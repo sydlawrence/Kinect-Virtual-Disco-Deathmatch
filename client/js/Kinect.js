@@ -29,9 +29,17 @@ Kinect = {
 
   parseData: function(data) {
     // new user
+    Game.registerPlayer(new Player(data.player));
+
     if (!Game.users[data.player]) {
       Game.users[data.player] = data.player;
     }
+
+    var player = Game.findPlayer(data.player);
+    if( player ) {
+      player.track(data);
+    }
+
     Kinect.currentPosition[data.player] = data;
     Kinect.skeletons[data.player] = new Skeleton(data);
     Kinect.draw();
@@ -106,5 +114,5 @@ $(document).bind("websocket.message",function(e,data) {
 });
 
 $(document).bind("kinect.calibrated",function() {
-  $('body').addClass("calibrated");  
+  $('body').addClass("calibrated");
 });

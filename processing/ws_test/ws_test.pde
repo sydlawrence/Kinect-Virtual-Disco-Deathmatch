@@ -1,4 +1,4 @@
-  
+
 import muthesius.net.*;
 import org.webbitserver.*;
 import SimpleOpenNI.*;
@@ -160,10 +160,6 @@ void onStartPose(String pose, int userId) {
 
 void stop(){
 	socket.stop();
-}
-
-void mousePressed(){
-  socket.broadcast("hello from processing!");
 }
 
 void websocketOnMessage(WebSocketConnection con, String msg){

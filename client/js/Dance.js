@@ -11,6 +11,7 @@ Dance = function(settings) {
   this.allowedDuration = 2000; // milliseconds
 
   this.positionTest = function(user) {
+    console.log(".");
     this.success(user);
   }
 
@@ -25,25 +26,39 @@ Dance = function(settings) {
     this.startTime = this.startTime.getTime();
     this.endTime = this.startTime + this.allowedDuration;
 
+    /*
     for (i in Game.users) {
       this.timeouts[i] = setInterval("currentDance.positionTest("+i+")",50);
     }
+    */
+
+    Game.setDance(this, this.endTime);
 
   }
 
   this.fail = function(user) {
+    var player = Game.findPlayer(user);
+    player.fail();
 
-    var now = new Date();
-    now = now.getTime();
-    if (now > this.endTime) {
-      clearInterval(this.timeouts[user]);
-      $(document).trigger("dance.fail",{dance:this,user:user});
-    }
+    //var now = new Date();
+    //now = now.getTime();
+    //if (now > this.endTime) {
+      //var player = Game.findPlayer(user);
+      //player.fail();
+      //clearInterval(this.timeouts[user]);
+      //$(document).trigger("dance.fail",{dance:this,user:user});
+    //}
   }
 
   this.success = function(user) {
-    clearInterval(this.timeouts[user]);
-    $(document).trigger("dance.success",{dance:this,user:user});
+    var player = Game.findPlayer(user);
+    player.success();
+
+    //console.log("dance success callback");
+    //var player = Game.findPlayer(user);
+    //player.success();
+    //clearInterval(this.timeouts[user]);
+    //$(document).trigger("dance.success",{dance:this,user:user});
   }
 
   for (i in settings) {
