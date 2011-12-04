@@ -32,7 +32,8 @@ Dance = function(settings) {
   }
 
   this.render = function(i) {
-    return "<img class='dance dance"+i+"' src='"+this.picture+"' alt='"+this.title+"' />";
+    return "";
+    //return "<img class='dance dance"+i+"' src='"+this.picture+"' alt='"+this.title+"' />";
   }
 
   this.fail = function(user) {

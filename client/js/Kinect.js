@@ -30,7 +30,7 @@ Kinect = {
   parseData: function(data) {
     Game.registerPlayer(new Player(data.player));
     var player = Game.findPlayer(data.player);
-        
+    
     if( player ) {
       player.track(data);
       
