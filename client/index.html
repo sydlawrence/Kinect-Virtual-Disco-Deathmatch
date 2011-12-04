@@ -37,6 +37,8 @@
 </script>
 
 <style>
+// GHETTO
+
 * {
   padding:0;
   margin:0;
@@ -203,14 +205,41 @@ img.dance.success {
   position:absolute;
   z-index:99;
   color:#fff;
+  top: 0;
   text-shadow:0px 0px 10px #000000;
   text-align:center;
-  padding-top:100px;
   font-size:100px;
   text-align:center;
   width:100%;
   display:none;
 }
+
+
+@-webkit-keyframes pulse {
+ 0% {
+   width:80%;
+   left:0;
+ }
+ 50% {
+    width:100%;
+    left:-6%;
+ }
+ 100% {
+    width:80%;
+    left:0;
+ }
+}
+
+
+
+
+
+.pulse img {
+ -webkit-animation:pulse 1s infinite;
+ position:relative;
+ display:block;
+}
+
 
 </style>
 </head>
@@ -221,7 +250,7 @@ img.dance.success {
   <div id="trackTime"></div>
 </div>
 <pre id="log"></pre>
-<div id="our_project">This is our project<br/>Paul (@nrocy) &amp; Syd (@sydlawrence)<br/>
+<div id="our_project">Virtual Disco Deathmatch<br/>Paul (@nrocy) &amp; Syd (@sydlawrence)<br/>
 <img src="images/unicorn.gif" height=300/>
 
 <img src="images/cat.gif" height=300 />

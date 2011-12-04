@@ -205,10 +205,29 @@ $(document).bind("game.updateScores",function() {
       Game.playSound("finishHim");
 
       
+      var winner = 1;
       str = "Player 1 Wins!";
       if (Game.players[i].isRight()) {
         str = "Player 2 Wins!";
-      }      
+        winner = 2;
+      } 
+      
+      switch (winner) {
+        case 1:
+          Notifications.create(Notifications.randomSuccess(), false, 1);
+          Notifications.create(Notifications.randomFail(), true, 1);
+          break;
+        case 2:
+          Notifications.create(Notifications.randomSuccess(), true, 1);
+          Notifications.create(Notifications.randomFail(), false, 1);
+          break;
+      
+      
+      }
+      
+      
+      
+           
       $('#winner').css("display","block");     
       $('#winner').html(str);
     }

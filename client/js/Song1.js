@@ -38,19 +38,19 @@ song1 = {
       move: Dance_BothHandAir,
       allowedDuration: 2000,
     },
-    
+        
     55: {
-      move: Dance_RightHandAir,
+      move: Dance_RightLegBothArms,
       allowedDuration: 2000,
     },
     
     60: {
-      move: Dance_BothHandAir,
+      move: Dance_LeftLegRightArm,
       allowedDuration: 2000,
     },
     
     65: {
-      move: Dance_LeftHandAir,
+      move: Dance_RightLegLeftArm,
       allowedDuration: 2000,
     },
     

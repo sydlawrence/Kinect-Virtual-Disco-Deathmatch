@@ -7,7 +7,7 @@ SimpleOpenNI kinect;
 WebSocketP5 socket;
 
 void setup() {
-  frameRate(20);
+  //frameRate(20);
   socket = new WebSocketP5(this,8080);
 
   kinect = new SimpleOpenNI(this);

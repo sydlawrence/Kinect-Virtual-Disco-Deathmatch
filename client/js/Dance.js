@@ -120,6 +120,32 @@ Dance_LeftLegBothArms = new Dance({
   }
 });
 
+Dance_RightLegBothArms = new Dance({
+  title:"Right leg, both arms in air",
+  picture: "images/moves/leftLegBothArms.png",
+  check: function(player) {
+    return player.skeleton.rightFootUp() && player.skeleton.leftArmUp() && player.skeleton.rightArmUp();
+  }
+});
+
+Dance_LeftLegRightArm = new Dance({
+  title:"Left leg, right arm in air",
+  picture: "images/moves/leftLegBothArms.png",
+  check: function(player) {
+    return player.skeleton.leftFootUp() && player.skeleton.rightArmUp();
+  }
+});
+
+Dance_RightLegLeftArm = new Dance({
+  title:"Right leg, left arm in air",
+  picture: "images/moves/leftLegBothArms.png",
+  check: function(player) {
+    return player.skeleton.rightFootUp() && player.skeleton.leftArmUp();
+  }
+});
+
+
+
 Dance_RightUpperCut = new Dance({
   title:"Right Uppercut",
   picture: "images/moves/leftFoot.png",

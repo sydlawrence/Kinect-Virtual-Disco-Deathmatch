@@ -32,21 +32,25 @@ Notifications = {
   },
 
 
-  create: function(str,isRight) {
+  create: function(str,isRight, leaveOnScreen) {
     var $div = $('<div class="notification" />');
     $div.html(str);
     if (isRight) {
       $div.addClass("right_player");
     }
     
-    $('body').append($div);
+    if (leaveOnScreen) {
+      $div.addClass("pulse");
+    }
     
-    $div.animate({opacity:1},500,undefined, function() {
-      $div.animate({opacity:0},1000,undefined, function() {
-        $div.remove();
+    $('body').append($div);
+    if (!leaveOnScreen) {
+      $div.animate({opacity:1},500,undefined, function() {
+        $div.animate({opacity:0},1000,undefined, function() {
+          $div.remove();
+        });
       });
-    });
+    }
   }
 
 }
-
