@@ -18,7 +18,7 @@ Dance = function(settings) {
     this.timestamp = timestamp;
     
     Game.setDance(this, new Date().getTime() + allowedDuration);
-
+    this.allowedDuration = allowedDuration;
     // this is just for testing
     if (Game.players.length === 0) {
       var t = this;

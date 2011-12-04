@@ -130,14 +130,13 @@ $(document).bind("game.updateScores",function() {
       html = parseInt(html);
     
       if (html !== count) {
-        var endNumber = count;
         
         var updateInterval = setInterval(function() {
           var html = $div.html();
           html = parseInt(html); 
           
           if (html !== count) {
-            var c = html+5;
+            var c = html+23;
             if (c > count) {
               c = count;
             }
@@ -156,19 +155,27 @@ $(document).bind("game.updateScores",function() {
 });
 
 $(document).bind("dance.success",function(evt,e) {
-  e.player.addScore(e.dance.score);
-
-  var danceImg = $(".dance"+e.dance.timestamp)
+  e.player.addScore(e.points);
+  
+  var div = ".left_player";
+  if (e.player.isRight()) {
+    div = ".right_player";
+  }
+  
+  var danceImg = $(div+" .dance"+e.dance.timestamp)
   danceImg.addClass("success").animate({marginBottom:(0-danceImg.height())},300,undefined, function() {
     danceImg.remove();
   });
   Notifications.create(Notifications.randomSuccess(), e.player.isRight());
 });
 
-$(document).bind("dance.fail",function(evt,e) {
-  e.player.addScore(e.dance.score);
-  
-  var danceImg = $(".dance"+e.dance.timestamp)
+$(document).bind("dance.fail",function(evt,e) { 
+  var div = ".left_player";
+  if (e.player.isRight()) {
+    div = ".right_player";
+  }
+ 
+  var danceImg = $(div+" .dance"+e.dance.timestamp)
   danceImg.addClass("fail").animate({marginBottom:(0-danceImg.height())},300,undefined, function() {
     danceImg.remove();
   });

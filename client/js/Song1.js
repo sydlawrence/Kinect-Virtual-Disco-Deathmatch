@@ -8,27 +8,27 @@ song1 = {
   moves: {
     5: {
       move: Dance_LeftHandAir,
-      allowedDuration: 3000,
+      allowedDuration: 2000,
     },
-    10: {
+    8: {
       move: Dance_RightHandAir,
-      allowedDuration: 3000,
+      allowedDuration: 2000,
     },
-    15: {
+    11: {
       move: Dance_LeftFootAir,
-      allowedDuration: 3000
+      allowedDuration: 2000
+    },
+    14: {
+      move: Dance_RightFootAir,
+      allowedDuration: 2000
+    },
+    17: {
+      move: Dance_BothHandAir,
+      allowedDuration: 2000,
     },
     20: {
-      move: Dance_RightFootAir,
-      allowedDuration: 3000
-    },
-    25: {
-      move: Dance_BothHandAir,
-      allowedDuration: 3000,
-    },
-    30: {
       move: Dance_LeftLegBothArms,
-      allowedDuration: 3000,
+      allowedDuration: 2000,
     }
     
   }
