@@ -11,12 +11,22 @@ Player = function(userId) {
     this.skeleton = new Skeleton(data);
   }
 
+  this.name = function() {
+    return this.userId;
+  }
+
+  this.addScore = function(points) {
+    this.score += points;
+    $(document).trigger("game.updateScores");
+  }
+
   this.setDance = function(dance, endTime) {
+    this.dance = dance;
     var player = this;
     console.log("dance set for player " + this.userId);
     this.endTime = endTime;
     this.timeout = setInterval(function() {
-      dance.positionTest(player.userId);
+      dance.positionTest(player);
     }, 50);
   }
 
@@ -25,15 +35,15 @@ Player = function(userId) {
     if (now > this.endTime) {
       clearInterval(this.timeout);
       this.timeout = undefined;
-      console.log("player " + this.userId + " failed");
+      $(document).trigger("dance.fail", {dance:this.dance, player:this});
     }
   }
 
   this.success = function() {
     clearInterval(this.timeout);
     this.timeout = undefined;
-    console.log("player " + this.userId + " success");
-    //$(document).trigger("dance.success",{dance:this,user:user});
+    //console.log("player " + this.userId + " success");
+    $(document).trigger("dance.success", {dance:this.dance, player:this});
   }
   return this;
 

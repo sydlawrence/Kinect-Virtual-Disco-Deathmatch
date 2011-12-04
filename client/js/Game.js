@@ -124,16 +124,13 @@ $(document).bind("game.updateScores",function() {
 });
 
 $(document).bind("dance.success",function(evt,e) {
-  Game.addScore(e.user,e.dance.score);
+  e.player.addScore(e.dance.score);
 
-  log("<span style='color:#0f0;'>User "+e.user+" successful dance move: "+e.dance.title+"</span>");
+  log("<span style='color:#0f0;'>User "+e.player.name()+" successful dance move: "+e.dance.title+"</span>");
 });
 
 $(document).bind("dance.fail",function(evt,e) {
-  //Game.addScore(e.dance.user,0);
-
-
-  log("<span style='color:#f00;'>User "+e.user+" unsuccessful dance move: "+e.dance.title+"</span>");
+  log("<span style='color:#f00;'>User "+e.player.name()+" unsuccessful dance move: "+e.dance.title+"</span>");
 });
 
 
