@@ -79,9 +79,9 @@ Game = {
 
   // the actual begin method
   begin: function() {
-    log("Start!");
-    $(document).trigger("game.begin");
+    $('body').addClass('players'+Game.users.length);
     Song.play(song1);
+    $(document).trigger("game.begin");
   },
 
   finish: function() {
@@ -100,11 +100,27 @@ Game = {
         Game.countdown.startInterval = setInterval('Game.countdown.run()',1000);
     },
 
+    render: function(str) {
+
+      var $div = $("<div class='countdown'>");
+      $div.html(str);
+
+      $div.animate({opacity:0},800,undefined,function() {
+        $div.remove();
+      })
+
+      $('body').append($div);
+    },
+
     run: function() {
-      log(Game.countdown.time)
       if (Game.countdown.time == Game.countdown.waitTime) {
         clearInterval(Game.countdown.startInterval);
+        Game.countdown.render(TextImageReplace('fight'));
+
         Game.begin();
+      } else {
+        Game.countdown.render(TextImageReplace(Game.countdown.waitTime - Game.countdown.time))
+
       }
       Game.countdown.time++;
     }
@@ -113,6 +129,14 @@ Game = {
 
 $(document).bind("game.start",function() {
   Game.start(2);
+});
+
+$(document).bind("Song.ready", function() {
+  // add all the dance moves to the screen
+  $('.dance_moves').html("");
+  for (i in Song.currentSong.moves) {
+    $('.dance_moves').prepend(Song.currentSong.moves[i].move.render(i));
+  }
 });
 
 $(document).bind("game.stop",function() {
@@ -126,11 +150,19 @@ $(document).bind("game.updateScores",function() {
 $(document).bind("dance.success",function(evt,e) {
   e.player.addScore(e.dance.score);
 
-  log("<span style='color:#0f0;'>User "+e.player.name()+" successful dance move: "+e.dance.title+"</span>");
+  var danceImg = $(".dance"+e.dance.timestamp)
+  danceImg.addClass("success").animate({marginBottom:(0-danceImg.height())},300,undefined, function() {
+    danceImg.remove();
+  });
+  Notifications.create(Notifications.randomSuccess()/*, isRight*/);
 });
 
 $(document).bind("dance.fail",function(evt,e) {
-  log("<span style='color:#f00;'>User "+e.player.name()+" unsuccessful dance move: "+e.dance.title+"</span>");
+  var danceImg = $(".dance"+e.dance.timestamp)
+  danceImg.addClass("fail").animate({marginBottom:(0-danceImg.height())},300,undefined, function() {
+    danceImg.remove();
+  });
+  Notifications.create(Notifications.randomFail()/*, isRight*/);
 });
 
 

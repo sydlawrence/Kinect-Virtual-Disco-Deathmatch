@@ -16,5 +16,7 @@ Vector = {
 
 
 
-
+TextImageReplace = function(str) {
+  return "<img src='images/text/"+str+".png'>";
+}
 

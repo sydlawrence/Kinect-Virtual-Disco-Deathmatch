@@ -3,6 +3,7 @@ Dance = function(settings) {
   this.title = "Some dance";
   this.picture = "";
   this.score = 5;
+  this.timestamp = 0;
 
   this.positionTest = function(player) {
     if( this.check(player) ) {
@@ -12,9 +13,22 @@ Dance = function(settings) {
     }
   }
 
-  this.isValid = function(allowedDuration) {
+  this.isValid = function(allowedDuration, timestamp) {
     log(this.title);
+    this.timestamp = timestamp;
     Game.setDance(this, new Date().getTime() + allowedDuration);
+
+  /*
+    if (Game.users.length === 0) {
+      var t = setTimeout("currentDance.fail()",this.allowedDuration)
+    }
+    */
+
+    $('.dance'+timestamp).addClass("active");
+  }
+
+  this.render = function(i) {
+    return "<img class='dance dance"+i+"' src='"+this.picture+"' alt='"+this.title+"' />";
   }
 
   this.fail = function(user) {
