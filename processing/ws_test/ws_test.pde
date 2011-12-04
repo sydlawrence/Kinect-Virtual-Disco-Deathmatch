@@ -7,10 +7,8 @@ SimpleOpenNI kinect;
 WebSocketP5 socket;
 
 void setup() {
+  frameRate(20);
   socket = new WebSocketP5(this,8080);
-
-  PVector p = new PVector(1,2,3);
-  String json_output = "";
 
   kinect = new SimpleOpenNI(this);
   kinect.enableDepth();
@@ -59,7 +57,6 @@ void draw() {
 
       noStroke();
       fill(255, 255, 255);
-
       PVector head = getJoint(userId, SimpleOpenNI.SKEL_HEAD);
       PVector neck = getJoint(userId, SimpleOpenNI.SKEL_NECK);
       PVector torso = getJoint(userId, SimpleOpenNI.SKEL_TORSO);

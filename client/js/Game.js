@@ -42,6 +42,7 @@ Game = {
 
   loadSamples: function() {
     Game.registerMusic("music", "songs/1.mp3");
+    Game.registerSample("dff", "songs/dff.mp3");
     Game.registerSample("finishHim", "songs/a6f563_Mortal_Kombat_3_Finish_Him_Sound_Effect.mp3");
     Game.registerSample("fight", "songs/10d604_Street_Fighter_Fight_Sound_Effect.mp3");
   },
@@ -130,6 +131,7 @@ Game = {
 
         Game.begin();
       } else {
+        Game.playSound("dff");
         Game.countdown.render(TextImageReplace(Game.countdown.waitTime - Game.countdown.time))
 
       }
