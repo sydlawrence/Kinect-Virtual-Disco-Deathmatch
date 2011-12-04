@@ -6,8 +6,13 @@ song1 = {
     mp3: "songs/1.mp3"
   },
   moves: {
-    5: {
-      move: Dance_LeftHandAir,
+
+    3: {
+      move: Dance_BankLeft,
+      allowedDuration: 2000,
+    },
+    6: {
+      move: Dance_BankRight,
       allowedDuration: 2000,
     },
     8: {
@@ -30,6 +35,6 @@ song1 = {
       move: Dance_LeftLegBothArms,
       allowedDuration: 2000,
     }
-    
+
   }
 }

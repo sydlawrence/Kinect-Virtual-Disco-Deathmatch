@@ -26,8 +26,20 @@ Skeleton = function(data) {
     return Vector.distance(this.joints.head, this.joints.left_hand) < distance && Vector.distance(this.joints.head, this.joints.right_hand) < distance;
   }
 
+  this.handBelowKnee = function(side) {
+    return this.joints[side + "_hand"].y > this.joints[side + "_knee"].y;
+  }
+
   this.elbowAboveShoulder = function(side) {
     return this.joints[side + "_elbow"].y < this.joints[side + "_shoulder"].y;
+  }
+
+  this.bankLeft = function() {
+    return Vector.angle(this.joints.left_hand, this.joints.right_hand) > -150 && Vector.angle(this.joints.left_hand, this.joints.right_hand) < -130;
+  }
+
+  this.bankRight = function() {
+    return Vector.angle(this.joints.left_hand, this.joints.right_hand) > 130 && Vector.angle(this.joints.left_hand, this.joints.right_hand) < 150;
   }
 
   this.kneeAboveOtherKnee = function(knee, other) {

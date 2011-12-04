@@ -94,6 +94,10 @@ body.calibrated {
   font-size:40px;
   font-family: Comic Sans MS, Comic Sans, arial;
   color:#fff;
+  text-align:center;
+  position:absolute;
+  top:0;
+  width:100%;
 }
 
 img.dance {
@@ -156,8 +160,8 @@ img.dance.success {
 .score {
   width:100%;
   position:absolute;
-  bottom:10px;
-  left:0;
+  top:10px;
+  left:10px;
   text-align:center;
   z-index:90;
   font-weight:bolder;
@@ -171,7 +175,7 @@ img.dance.success {
 }
 
 #score_right {
-  right:0;
+  right:10px;
   left:auto;
 }
 
@@ -184,7 +188,7 @@ img.dance.success {
 </div>
 <pre id="log"></pre>
 
-<div class="score" id="score_left">0</div>
+<div class="score" id="score_left"></div>
 <div class="score right_player" id="score_right">0</div>
 
 <div class="dance_moves left_player"></div>

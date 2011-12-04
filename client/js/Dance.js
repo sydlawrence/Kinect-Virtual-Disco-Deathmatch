@@ -70,6 +70,22 @@ Dance_LeftHandAir = new Dance({
 });
 
 
+Dance_BankLeft = new Dance({
+  title: "Bank left!",
+
+  check: function(player) {
+    return player.skeleton.bankLeft();
+  }
+});
+
+Dance_BankRight = new Dance({
+  title: "Bank right!",
+
+  check: function(player) {
+    return player.skeleton.bankRight();
+  }
+});
+
 Dance_BothHandAir = new Dance({
   title:"Both hands in air",
 

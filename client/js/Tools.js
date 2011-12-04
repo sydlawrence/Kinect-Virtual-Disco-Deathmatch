@@ -1,7 +1,15 @@
 console.log = console.dir;
 
 log = function(str) {
+
+  $('#log').html('').css('top',0).css('opacity',1);
+  
   $('#log').append(str+"\n");
+  
+  var t = setTimeout(function() {  
+    $('#log').animate({opacity:0.1,top: (0 - $('#log').height())})
+  },1000);
+  
 }
 
 
