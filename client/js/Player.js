@@ -13,6 +13,34 @@ Player = function(userId) {
     this.data = data;
   }
 
+  this.position = function() {
+    if( this.skeleton.valid() ) {
+      return this.skeleton.position();
+    }
+
+    return -1;
+  }
+
+  this.isRight = function() {
+    return !this.isLeft();
+  }
+
+  this.isLeft = function() {
+    var
+      rightMost = 0,
+      rightMostUserId = 0;
+
+    for(var i = 0 ; i < Game.players.length ; i++ ) {
+      var player = Game.players[i];
+      if( player.position() > rightMost ) {
+        rightMostUserId = player.userId;
+        rightMost = player.position();
+      }
+    }
+
+    return this.userId = rightMostUserId;
+  }
+
   this.name = function() {
     return this.userId;
   }
@@ -25,7 +53,6 @@ Player = function(userId) {
   this.setDance = function(dance, endTime) {
     this.dance = dance;
     var player = this;
-    console.log("dance set for player " + this.userId);
     this.endTime = endTime;
     this.timeout = setInterval(function() {
       dance.positionTest(player);
@@ -44,7 +71,6 @@ Player = function(userId) {
   this.success = function() {
     clearInterval(this.timeout);
     this.timeout = undefined;
-    //console.log("player " + this.userId + " success");
     $(document).trigger("dance.success", {dance:this.dance, player:this});
   }
 
