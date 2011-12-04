@@ -9,29 +9,29 @@ song1 = {
 
     25: {
       move: Dance_BankLeft,
-      allowedDuration: 2000,
+      allowedDuration: 1500,
     },
     28: {
       move: Dance_BankRight,
-      allowedDuration: 2000,
+      allowedDuration: 1500,
     },
-    31: {
+    32: {
       move: Dance_BankLeft,
-      allowedDuration: 2000,
+      allowedDuration: 1500,
     },
-    34: {
+    36: {
       move: Dance_BankRight,
-      allowedDuration: 2000,
+      allowedDuration: 1500,
     },
     
     43: {
       move: Dance_RightHandAir,
-      allowedDuration: 2000,
+      allowedDuration: 1500,
     },
     
     46: {
       move: Dance_LeftHandAir,
-      allowedDuration: 2000,
+      allowedDuration: 1500,
     },
     
     49: {
@@ -61,12 +61,17 @@ song1 = {
     
     76: {
       move: Dance_LeftFootAir,
-      allowedDuration: 2000
+      allowedDuration: 1500
     },
     
     79: {
       move: Dance_RightFootAir,
       allowedDuration: 2000
+    },
+    
+    83: {
+      move: Dance_BothHandAir,
+      allowedDuration: 2000,
     },
     
     87: { // drop
