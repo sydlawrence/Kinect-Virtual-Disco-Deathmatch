@@ -26,7 +26,6 @@ Dance = function(settings) {
          $(document).trigger("dance.fail", {dance:t});
       },this.allowedDuration)
     }
-    
 
     $('.dance'+timestamp).addClass("active");
   }
@@ -121,3 +120,10 @@ Dance_LeftLegBothArms = new Dance({
   }
 });
 
+Dance_RightUpperCut = new Dance({
+  title:"Right Uppercut",
+  picture: "images/moves/leftFoot.png",
+  check: function(player) {
+    return player.skeleton.rightUpperCut();
+  }
+});

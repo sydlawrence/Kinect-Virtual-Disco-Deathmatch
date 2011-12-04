@@ -12,6 +12,10 @@ Skeleton = function(data) {
   this.position = function() {
     return this.joints.neck.x;
   }
+  
+  this.rightUpperCut = function() {
+    return Math.sqrt((this.joints.right_hand.y - this.joints.right_elbow.y) * (this.joints.right_hand.y - this.joints.right_elbow.y)) < Vector.distance(this.joints.head,this.joints.neck) / 2;
+  }
 
   this.handAboveElbow = function(side) {
     return this.joints[side + "_hand"].y < this.joints[side + "_elbow"].y;
