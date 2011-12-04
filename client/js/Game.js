@@ -19,7 +19,29 @@ Game = {
     });
   },
 
+  registerMusic: function(name, url) {
+    Game.samples[name] = soundManager.createSound({
+      id: name,
+      url: url,
+      autoload: true,
+      autoplay: false,
+      position: 22000,
+      whileplaying: function() {
+        var time = parseInt(this.position / 1000);
+        if( Song.currentTime !== time ) {
+          Song.currentTime = time;
+          $('#trackTime').html(Song.currentTime);
+          Song.checkMoves(Song.currentTime);
+        }
+        //console.log(this.position);
+      },
+    });
+
+    //Game.samples[name].play();
+  },
+
   loadSamples: function() {
+    Game.registerMusic("music", "songs/1.mp3");
     Game.registerSample("finishHim", "songs/a6f563_Mortal_Kombat_3_Finish_Him_Sound_Effect.mp3");
     Game.registerSample("fight", "songs/10d604_Street_Fighter_Fight_Sound_Effect.mp3");
   },
