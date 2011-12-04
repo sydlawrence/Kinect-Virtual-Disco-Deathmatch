@@ -38,6 +38,22 @@ Kinect = {
     var player = Game.findPlayer(data.player);
     if( player ) {
       player.track(data);
+      
+      // check for game start
+      if (player.isReady() && !Game.isRunning) {
+        var allReady = true;
+        for (var i = 0; i < Game.players.length; i++) {
+          if (!Game.players[i].isReady()) {
+            allReady = false;
+            break;
+          }
+        }
+        
+        if (allReady) {
+          $(document).trigger('game.start');  
+        }
+      
+      }
     }
 
     Kinect.currentPosition[data.player] = data;

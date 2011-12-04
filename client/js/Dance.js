@@ -2,7 +2,7 @@
 Dance = function(settings) {
   this.title = "Some dance";
   this.picture = "";
-  this.score = 5;
+  this.score = 1000;
   this.timestamp = 0;
 
   this.positionTest = function(player) {
@@ -16,13 +16,17 @@ Dance = function(settings) {
   this.isValid = function(allowedDuration, timestamp) {
     log(this.title);
     this.timestamp = timestamp;
+    
     Game.setDance(this, new Date().getTime() + allowedDuration);
 
-  /*
-    if (Game.users.length === 0) {
-      var t = setTimeout("currentDance.fail()",this.allowedDuration)
+    // this is just for testing
+    if (Game.players.length === 0) {
+      var t = this;
+      setTimeout(function() {
+         $(document).trigger("dance.fail", {dance:t});
+      },this.allowedDuration)
     }
-    */
+    
 
     $('.dance'+timestamp).addClass("active");
   }

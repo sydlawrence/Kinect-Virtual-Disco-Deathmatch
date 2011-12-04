@@ -6,7 +6,7 @@ Game = {
 
   users:[],
   players: [],
-
+  
   isRunning: false,
 
   registerPlayer: function(player) {
@@ -128,6 +128,7 @@ Game = {
 }
 
 $(document).bind("game.start",function() {
+  $('.score').html(0);
   Game.start(2);
 });
 
@@ -144,14 +145,45 @@ $(document).bind("game.stop",function() {
 });
 
 $(document).bind("game.updateScores",function() {
-
+    
   for (var i = 0; i < Game.players.length; i++) {
-    if (true) {
-      $('#score_right').html(Game.players[i].score);
-    } else {
-      $('#score_left').html(Game.players[i].score);
+    var el = '#score_left';
+    if (false) { // if user is right
+      el = '#score_right';
     }
+    
+    update_score = function(el,count) {
+      var $div = $(el);
+      var fs = $div.css('font-size');
+      $div.animate({fontSize:42},300);
+      
+      var html = $div.html();
+      html = parseInt(html);
+    
+      if (html !== count) {
+        var endNumber = count;
+        
+        var updateInterval = setInterval(function() {
+          var html = $div.html();
+          html = parseInt(html); 
+          
+          if (html !== count) {
+            var c = html+5;
+            if (c > count) {
+              c = count;
+            }
+            $div.html(c);
+          } else {
+            clearInterval(updateInterval);
+            $div.animate({fontSize:fs});
+          }
+        },5);
+      } 
+    }
+    update_score(el,Game.players[i].score);
+
   }  
+  
 });
 
 $(document).bind("dance.success",function(evt,e) {
@@ -165,6 +197,8 @@ $(document).bind("dance.success",function(evt,e) {
 });
 
 $(document).bind("dance.fail",function(evt,e) {
+  e.player.addScore(e.dance.score);
+  
   var danceImg = $(".dance"+e.dance.timestamp)
   danceImg.addClass("fail").animate({marginBottom:(0-danceImg.height())},300,undefined, function() {
     danceImg.remove();

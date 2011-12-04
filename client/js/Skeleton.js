@@ -18,6 +18,15 @@ Skeleton = function(data) {
   this.handAboveElbow = function(side) {
     return this.joints[side + "_hand"].y < this.joints[side + "_elbow"].y;
   }
+  
+  this.handsOnHead = function() {
+    var distance = Vector.distance(this.joints.head,this.joints.neck);
+    if (!distance) {
+      return false;
+    }
+       
+    return Vector.distance(this.joints.head, this.joints.left_hand) < distance && Vector.distance(this.joints.head, this.joints.right_hand) < distance;
+  }
 
   this.elbowAboveShoulder = function(side) {
     return this.joints[side + "_elbow"].y < this.joints[side + "_shoulder"].y;
@@ -28,9 +37,10 @@ Skeleton = function(data) {
   }
 
   this.footAboveOtherFoot = function(foot, other) {
-    var neckToFoot = this.joints[foot + "_foot"].y - this.joints.neck.y;
-    var neckToOther = this.joints[other + "_foot"].y - this.joints.neck.y;
-    var neckToHead = Math.abs(this.joints.neck.y - this.joints.head.y);
+    var neckToFoot = Vector.distance(this.joints[foot + "_foot"],this.joints.neck);
+    var neckToOther = Vector.distance(this.joints[other + "_foot"],this.joints.neck);
+    var neckToHead = Vector.distance(this.joints.head,this.joints.neck);
+
 
     /*
     if( this.joints.neck.y && this.joints.left_foot.y ) {

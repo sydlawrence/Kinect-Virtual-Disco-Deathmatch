@@ -10,6 +10,10 @@ Player = function(userId) {
   this.track = function(data) {
     this.skeleton = new Skeleton(data);
   }
+  
+  this.isReady = function() {
+    return this.skeleton.handsOnHead();
+  }
 
   this.name = function() {
     return this.userId;
