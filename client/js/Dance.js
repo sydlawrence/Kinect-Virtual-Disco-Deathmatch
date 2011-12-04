@@ -55,6 +55,7 @@ Dance = function(settings) {
 
 Dance_RightHandAir = new Dance({
   title:"Right hand in air",
+  picture: "images/moves/rightHand.png",
 
   check: function(player) {
     return player.skeleton.rightArmUp();
@@ -63,6 +64,7 @@ Dance_RightHandAir = new Dance({
 
 Dance_LeftHandAir = new Dance({
   title:"Left hand in air",
+  picture: "images/moves/leftHand.png",
 
   check: function(player) {
     return player.skeleton.leftArmUp();
@@ -72,7 +74,7 @@ Dance_LeftHandAir = new Dance({
 
 Dance_BankLeft = new Dance({
   title: "Bank left!",
-
+  picture: "images/moves/bankLeft.png",
   check: function(player) {
     return player.skeleton.bankLeft();
   }
@@ -80,7 +82,7 @@ Dance_BankLeft = new Dance({
 
 Dance_BankRight = new Dance({
   title: "Bank right!",
-
+  picture: "images/moves/bankRight.png",
   check: function(player) {
     return player.skeleton.bankRight();
   }
@@ -88,7 +90,7 @@ Dance_BankRight = new Dance({
 
 Dance_BothHandAir = new Dance({
   title:"Both hands in air",
-
+  picture: "images/moves/bothHands.png",
   check: function(player) {
     return player.skeleton.leftArmUp() && player.skeleton.rightArmUp();
   }
@@ -96,7 +98,7 @@ Dance_BothHandAir = new Dance({
 
 Dance_RightFootAir = new Dance({
   title:"Right foot in air",
-
+  picture: "images/moves/rightFoot.png",
   check: function(player) {
     return player.skeleton.rightFootUp();
   }
@@ -104,16 +106,15 @@ Dance_RightFootAir = new Dance({
 
 Dance_LeftFootAir = new Dance({
   title:"Left foot in air",
-
+  picture: "images/moves/leftFoot.png",
   check: function(player) {
     return player.skeleton.leftFootUp();
   }
 });
 
-
 Dance_LeftLegBothArms = new Dance({
   title:"Left leg, both arms in air",
-
+  picture: "images/moves/leftLegBothArms.png",
   check: function(player) {
     return player.skeleton.leftFootUp() && player.skeleton.leftArmUp() && player.skeleton.rightArmUp();
   }

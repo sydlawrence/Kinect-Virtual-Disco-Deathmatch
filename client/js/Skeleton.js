@@ -6,11 +6,11 @@ Skeleton = function(data) {
   this.joints = data;
 
   this.valid = function() {
-    return this.joints.head && this.joints.neck && this.joints.left_foot && this.joints.right_foot && this.joints.left_hand && this.joints.right_hand;
+    return this.joints.neck && this.joints.left_foot && this.joints.right_foot && this.joints.left_hand && this.joints.right_hand;
   }
 
   this.position = function() {
-    return this.joints.head.x;
+    return this.joints.neck.x;
   }
 
   this.handAboveElbow = function(side) {

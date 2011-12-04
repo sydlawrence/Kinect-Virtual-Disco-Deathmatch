@@ -26,6 +26,11 @@ Player = function(userId) {
   }
 
   this.isLeft = function() {
+    if (Game.players.length < 2) {
+      return true;
+    }
+  
+  
     var
       rightMost = 0,
       rightMostUserId = 0;

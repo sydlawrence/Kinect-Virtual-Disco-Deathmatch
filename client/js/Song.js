@@ -8,10 +8,13 @@ Song = {
 
   play:function(song) {
     Song.currentSong = song;
-    Song.audio.src = song.track.mp3;  
     $(document).trigger("Song.ready");
-    Song.audio.play();
+    $(Song.audio).bind("loadeddata", function() {
+      Song.audio.currentTime = 22;
+      Song.audio.play();
+    })
     
+    Song.audio.src = song.track.mp3;  
   },
   
   checkMoves: function(timestamp) {

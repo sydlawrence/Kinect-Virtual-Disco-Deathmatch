@@ -7,34 +7,57 @@ song1 = {
   },
   moves: {
 
-    3: {
+    31: {
       move: Dance_BankLeft,
       allowedDuration: 2000,
     },
-    6: {
+    35: {
       move: Dance_BankRight,
       allowedDuration: 2000,
     },
-    8: {
+    43: {
       move: Dance_RightHandAir,
       allowedDuration: 2000,
     },
-    11: {
-      move: Dance_LeftFootAir,
-      allowedDuration: 2000
+    
+    47: {
+      move: Dance_LeftHandAir,
+      allowedDuration: 2000,
     },
-    14: {
-      move: Dance_RightFootAir,
-      allowedDuration: 2000
-    },
-    17: {
+    
+    53: {
       move: Dance_BothHandAir,
       allowedDuration: 2000,
     },
-    20: {
+    
+    56: {
+      move: Dance_RightHandAir,
+      allowedDuration: 2000,
+    },
+    
+    65: {
+      move: Dance_LeftHandAir,
+      allowedDuration: 2000,
+    },
+    
+    69: {
+      move: Dance_BothHandAir,
+      allowedDuration: 2000,
+    },
+    
+    76: {
+      move: Dance_LeftFootAir,
+      allowedDuration: 2000
+    },
+    
+    79: {
+      move: Dance_RightFootAir,
+      allowedDuration: 2000
+    },
+    
+    87: { // drop
       move: Dance_LeftLegBothArms,
       allowedDuration: 2000,
-    }
-
+    } // drop
   }
 }
