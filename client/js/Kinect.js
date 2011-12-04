@@ -47,6 +47,8 @@ Kinect = {
   drawLimb: function(user, start, end) {
 
     if (Kinect.currentPosition[user][start] && Kinect.currentPosition[user][end]) {
+      Kinect.context.strokeStyle = '#fff'; // red
+      Kinect.context.lineWidth = 6;
       Kinect.context.beginPath();
       Kinect.context.moveTo(Kinect.currentPosition[user][start].x,Kinect.currentPosition[user][start].y);
       Kinect.context.lineTo(Kinect.currentPosition[user][end].x,Kinect.currentPosition[user][end].y);

@@ -9,14 +9,14 @@ Song = {
   play:function(song) {
     Song.currentSong = song;
     Song.audio.src = song.track.mp3;  
-    
+    $(document).trigger("Song.ready");
     Song.audio.play();
     
   },
   
   checkMoves: function(timestamp) {
     if (Song.currentSong.moves[timestamp]) {
-      Song.currentSong.moves[timestamp].move.isValid(Song.currentSong.moves[timestamp].allowedDuration);
+      Song.currentSong.moves[timestamp].move.isValid(Song.currentSong.moves[timestamp].allowedDuration, timestamp);
     }
   }
 

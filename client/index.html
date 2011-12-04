@@ -1,3 +1,4 @@
+<head>
 <!-- GHETTO, but custom events are easier -->
 <script type="text/javascript" src="js/jquery.js"></script>
 
@@ -8,6 +9,8 @@
 <script src="js/Skeleton.js"></script>
 <script src="js/Connection.js"></script>
 <script src="js/Kinect.js"></script>
+
+<script src="js/Notifications.js"></script>
 
 <script src="js/Game.js"></script>
 <script src="js/Dance.js"></script>
@@ -23,26 +26,157 @@
 
 
 <style>
+* {
+  padding:0;
+  margin:0;
+}
+
 #kinectCanvas {
-  border:1px solid #000;
   position:absolute;
   z-index:-1;
   -webkit-transform:scaleX(-1);
 }
 
 body {
+  font-family: Comic Sans MS, Comic Sans, arial;
   background:#fcc;
-  -webkit-transition:background 200ms linear;
-  -moz-transition:background 200ms linear;
-  transition:background 200ms linear;
+  -webkit-transition:background 500ms linear;
+  -moz-transition:background 500ms linear;
+  transition:background 500ms linear;
 }
 
 body.calibrated {
-  background:#cfc;
+  background:url(images/bg.jpg) top center;
+  background-size:100% 100%;
+}
+
+.countdown {
+  position:absolute;
+  z-index:9999999;
+  font-size:80px;
+  text-align:center;
+  width:410px;
+  margin-left:-205px;
+  left:50%;
+  top:40%;
+}
+
+.countdown .start {
+  font-size:1.3em;
+}
+
+.notification {
+  position:absolute;
+  z-index:9999999;
+  font-size:80px;
+  text-align:center;
+  width:410px;
+  margin-left:-205px;
+  left:50%;
+  top:40%;  
+  font-weight:bolder;
+  text-shadow:0px 0px 10px #ffffff;
+}
+
+.players2 .notification {
+  left:25%;
+}
+
+.players2 .notification.right_player {
+  right:25%;
+  margin-left:0;
+  margin-right:-205px;
+  left:auto;
+}
+
+#log {
+  font-size:40px;
+  font-family: Comic Sans MS, Comic Sans, arial;
+  color:#fff;
+}
+
+img.dance {
+  width:50px;
+  height:50px;
+  float:none;
+  display:block;
+  margin:0;
+  padding:0;
+  opacity:0.4;
+  background:#000;
+  -webkit-transition:opacity 300ms linear, width 300ms linear, height 300ms linear;
+  -moz-transition:opacity 300ms linear, width 300ms linear, height 300ms linear;
+  transition:opacity 300ms linear, width 300ms linear, height 300ms linear;
+}
+
+img.dance.active {
+  width:100px;
+  height:100px;
+  opacity:1;
+}
+
+img.dance:after {
+  content: " (" attr(alt) ") ";
+  font-size: 90%;
+}
+
+img.dance.fail {
+  border:5px solid #f00;
+}
+
+img.dance.success {
+  border:5px solid #0f0;
+}
+
+.dance_moves {
+  position:absolute;
+  left:0px;
+  bottom:0px;
+}
+
+.dance_moves.right_player {
+  right:0px;
+  left:auto;
+  display:none;
+}
+
+.right_player {
+  display:none;
+}
+
+.players2 .right_player {
+  display:block;
+}
+
+.players2 .dance_moves.right_player {
+  display:block;
+}
+
+.score {
+  width:100%;
+  position:absolute;
+  bottom:10px;
+  left:0;
+  text-align:center;
+  z-index:90;
+  font-weight:bolder;
+  font-size:30px;
+  text-shadow:0px 0px 10px #000000;
+  color:#fff;
+}
+
+.players2 .score {
+  width:50%;
+}
+
+#score_right {
+  right:0;
+  left:auto;
 }
 
 </style>
-
+</head>
+<body>
 <canvas id="kinectCanvas" width=640 height=480></canvas>
 <div style="position:absolute;right:0;top:0;">
   <button onclick="$(document).trigger('game.start')">Start</button>
@@ -52,3 +186,10 @@ body.calibrated {
 </div>
 <pre id="log"></pre>
 
+<div class="score" id="score_left">200</div>
+<div class="score right_player" id="score_right"></div>
+
+<div class="dance_moves"></div>
+<div class="dance_moves right_player"></div>
+
+</body>

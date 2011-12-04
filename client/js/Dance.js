@@ -8,17 +8,18 @@ Dance = function(settings) {
   this.timeouts = [];
   this.startTime = 0;
   this.endTime = 0;
+  this.timestamp = 0;
   this.allowedDuration = 2000; // milliseconds
 
   this.positionTest = function(user) {
     this.success(user);
   }
 
-  this.isValid = function(allowedDuration) {
+  this.isValid = function(allowedDuration, timestamp) {
+    this.timestamp = timestamp;
     if (allowedDuration) {
       this.allowedDuration = allowedDuration;
     }
-    log(this.title);
 
     currentDance = this;
     this.startTime = new Date();
@@ -28,7 +29,17 @@ Dance = function(settings) {
     for (i in Game.users) {
       this.timeouts[i] = setInterval("currentDance.positionTest("+i+")",50);
     }
+    
+    
+    if (Game.users.length === 0) {
+      var t = setTimeout("currentDance.fail()",this.allowedDuration)
+    }
 
+    $('.dance'+timestamp).addClass("active");
+  }
+  
+  this.render = function(i) {
+    return "<img class='dance dance"+i+"' src='"+this.picture+"' alt='"+this.title+"' />";
   }
 
   this.fail = function(user) {
@@ -78,8 +89,7 @@ Dance_LeftHandAir = new Dance({
 
   title:"Left hand in air",
 
-  positionTest: function(user) {
-
+  positionTest: function(user) {    
     if(Kinect.skeletons[user].leftArmUp() ) {
       this.success(user);
     } else {
