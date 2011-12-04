@@ -1,10 +1,4 @@
 Game = {
-
-  scores: [],
-
-  userCount: 1,
-
-  users:[],
   players: [],
   
   isRunning: false,
@@ -40,41 +34,16 @@ Game = {
     }
   },
 
-  addScore: function(key, value) {
-    if (value === undefined) {
-      value = key;
-      key = 0;
-    }
-
-    Game.scores[key] += value;
-
-    $(document).trigger("game.updateScores");
-  },
-
-
   // called to start a new game
-  start: function(userCount) {
-
-    Game.users = [];
-
+  start: function() {
     if (Game.isRunning) {
       alert("Game is already running");
       return;
     }
     Game.isRunning = true;
 
-    this.userCount = userCount;
-
-    //this.userCount = 1;
-    var scores = [];
-    for (var i = 0; i<userCount;i++) {
-      scores[i] = 0;
-    }
-    Game.scores = scores;
-
     $('#log').html('');
     Game.countdown.start();
-
   },
 
   // the actual begin method
