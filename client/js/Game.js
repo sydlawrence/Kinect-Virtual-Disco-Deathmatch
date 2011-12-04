@@ -1,11 +1,30 @@
 Game = {
   players: [],
+  samples: {},
   isRunning: false,
 
   registerPlayer: function(player) {
     if( !Game.playerRegistered(player) ) {
       Game.players.push(player);
     }
+  },
+
+  registerSample: function(name, url) {
+    Game.samples[name] = soundManager.createSound({
+      id: name,
+      url: url,
+      autoLoad: true,
+      autoPlay: false
+    });
+  },
+
+  loadSamples: function() {
+    Game.registerSample("finishHim", "songs/a6f563_Mortal_Kombat_3_Finish_Him_Sound_Effect.mp3");
+    Game.registerSample("fight", "songs/10d604_Street_Fighter_Fight_Sound_Effect.mp3");
+  },
+
+  playSound: function(name) {
+    Game.samples[name].play();
   },
 
   findPlayer: function(userId) {
@@ -83,6 +102,7 @@ Game = {
     run: function() {
       if (Game.countdown.time == Game.countdown.waitTime) {
         clearInterval(Game.countdown.startInterval);
+        Game.playSound("fight");
         Game.countdown.render(TextImageReplace('fight'));
 
         Game.begin();

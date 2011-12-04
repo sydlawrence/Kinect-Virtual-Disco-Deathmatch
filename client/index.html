@@ -23,8 +23,18 @@
 
 <script src="js/script.js"></script>
 
+<script src="js/soundmanager2-nodebug-jsmin.js"></script>
 
+<script type="text/javascript">
+  soundManager.url = "swf/";
+  soundManager.flashVersion = 9;
+  soundManager.useFlashBlock = false;
 
+  soundManager.onready(function() {
+    Game.loadSamples();
+  });
+
+</script>
 
 <style>
 * {
@@ -74,7 +84,7 @@ body.calibrated {
   width:410px;
   margin-left:-205px;
   left:50%;
-  top:40%;  
+  top:40%;
   font-weight:bolder;
   text-shadow:0px 0px 10px #ffffff;
 }
