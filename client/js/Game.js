@@ -1,12 +1,31 @@
 Game = {
   players: [],
-  
+  samples: {},
+
   isRunning: false,
 
   registerPlayer: function(player) {
     if( !Game.playerRegistered(player) ) {
       Game.players.push(player);
     }
+  },
+
+  registerSample: function(name, url) {
+    Game.samples[name] = soundManager.createSound({
+      id: name,
+      url: url,
+      autoLoad: true,
+      autoPlay: false
+    });
+  },
+
+  loadSamples: function() {
+    Game.registerSample("finishHim", "songs/a6f563_Mortal_Kombat_3_Finish_Him_Sound_Effect.mp3");
+    Game.registerSample("fight", "songs/10d604_Street_Fighter_Fight_Sound_Effect.mp3");
+  },
+
+  playSound: function(name) {
+    Game.samples[name].play();
   },
 
   findPlayer: function(userId) {
@@ -84,6 +103,7 @@ Game = {
     run: function() {
       if (Game.countdown.time == Game.countdown.waitTime) {
         clearInterval(Game.countdown.startInterval);
+        Game.playSound("fight");
         Game.countdown.render(TextImageReplace('fight'));
 
         Game.begin();
@@ -114,27 +134,27 @@ $(document).bind("game.stop",function() {
 });
 
 $(document).bind("game.updateScores",function() {
-    
+
   for (var i = 0; i < Game.players.length; i++) {
     var el = '#score_left';
     if (Game.players[i].isRight()) { // if user is right
       el = '#score_right';
     }
-    
+
     update_score = function(el,count) {
       var $div = $(el);
       var fs = $div.css('font-size');
       $div.animate({fontSize:42},300);
-      
+
       var html = $div.html();
       html = parseInt(html);
-    
+
       if (html !== count) {
-        
+
         var updateInterval = setInterval(function() {
           var html = $div.html();
-          html = parseInt(html); 
-          
+          html = parseInt(html);
+
           if (html !== count) {
             var c = html+23;
             if (c > count) {
@@ -146,22 +166,22 @@ $(document).bind("game.updateScores",function() {
             $div.animate({fontSize:fs});
           }
         },5);
-      } 
+      }
     }
     update_score(el,Game.players[i].score);
 
-  }  
-  
+  }
+
 });
 
 $(document).bind("dance.success",function(evt,e) {
   e.player.addScore(e.points);
-  
+
   var div = ".left_player";
   if (e.player.isRight()) {
     div = ".right_player";
   }
-  
+
   var danceImg = $(div+" .dance"+e.dance.timestamp)
   danceImg.addClass("success").animate({marginBottom:(0-danceImg.height())},300,undefined, function() {
     danceImg.remove();
@@ -169,12 +189,12 @@ $(document).bind("dance.success",function(evt,e) {
   Notifications.create(Notifications.randomSuccess(), e.player.isRight());
 });
 
-$(document).bind("dance.fail",function(evt,e) { 
+$(document).bind("dance.fail",function(evt,e) {
   var div = ".left_player";
   if (e.player.isRight()) {
     div = ".right_player";
   }
- 
+
   var danceImg = $(div+" .dance"+e.dance.timestamp)
   danceImg.addClass("fail").animate({marginBottom:(0-danceImg.height())},300,undefined, function() {
     danceImg.remove();
