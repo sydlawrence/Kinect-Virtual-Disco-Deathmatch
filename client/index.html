@@ -84,7 +84,7 @@ body.calibrated {
   width:410px;
   margin-left:-205px;
   left:50%;
-  top:40%;
+  top:20%;
   font-weight:bolder;
   text-shadow:0px 0px 10px #ffffff;
 }
@@ -104,6 +104,10 @@ body.calibrated {
   font-size:40px;
   font-family: Comic Sans MS, Comic Sans, arial;
   color:#fff;
+  text-align:center;
+  position:absolute;
+  top:0;
+  width:100%;
 }
 
 img.dance {
@@ -164,11 +168,10 @@ img.dance.success {
 }
 
 .score {
-  width:100%;
+  width:auto;
   position:absolute;
-  bottom:10px;
-  left:0;
-  text-align:center;
+  top:10px;
+  left:10px;
   z-index:90;
   font-weight:bolder;
   font-size:30px;
@@ -176,12 +179,8 @@ img.dance.success {
   color:#fff;
 }
 
-.players2 .score {
-  width:50%;
-}
-
 #score_right {
-  right:0;
+  right:10px;
   left:auto;
 }
 
@@ -190,16 +189,14 @@ img.dance.success {
 <body>
 <canvas id="kinectCanvas" width=640 height=480></canvas>
 <div style="position:absolute;right:0;top:0;">
-  <button onclick="$(document).trigger('game.start')">Start</button>
-  <button onclick="$(document).trigger('game.stop')">Stop</button>
   <div id="trackTime"></div>
 </div>
 <pre id="log"></pre>
 
-<div class="score" id="score_left">0</div>
+<div class="score" id="score_left"></div>
 <div class="score right_player" id="score_right">0</div>
 
-<div class="dance_moves"></div>
+<div class="dance_moves left_player"></div>
 <div class="dance_moves right_player"></div>
 
 </body>

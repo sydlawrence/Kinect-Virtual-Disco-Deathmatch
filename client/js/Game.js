@@ -1,6 +1,7 @@
 Game = {
   players: [],
   samples: {},
+
   isRunning: false,
 
   registerPlayer: function(player) {
@@ -116,6 +117,7 @@ Game = {
 }
 
 $(document).bind("game.start",function() {
+  $('.score').html(0);
   Game.start(2);
 });
 
@@ -134,30 +136,70 @@ $(document).bind("game.stop",function() {
 $(document).bind("game.updateScores",function() {
 
   for (var i = 0; i < Game.players.length; i++) {
-    if (true) {
-      $('#score_right').html(Game.players[i].score);
-    } else {
-      $('#score_left').html(Game.players[i].score);
+    var el = '#score_left';
+    if (Game.players[i].isRight()) { // if user is right
+      el = '#score_right';
     }
+
+    update_score = function(el,count) {
+      var $div = $(el);
+      var fs = $div.css('font-size');
+      $div.animate({fontSize:42},300);
+
+      var html = $div.html();
+      html = parseInt(html);
+
+      if (html !== count) {
+
+        var updateInterval = setInterval(function() {
+          var html = $div.html();
+          html = parseInt(html);
+
+          if (html !== count) {
+            var c = html+23;
+            if (c > count) {
+              c = count;
+            }
+            $div.html(c);
+          } else {
+            clearInterval(updateInterval);
+            $div.animate({fontSize:fs});
+          }
+        },5);
+      }
+    }
+    update_score(el,Game.players[i].score);
+
   }
+
 });
 
 $(document).bind("dance.success",function(evt,e) {
-  e.player.addScore(e.dance.score);
+  e.player.addScore(e.points);
 
-  var danceImg = $(".dance"+e.dance.timestamp)
+  var div = ".left_player";
+  if (e.player.isRight()) {
+    div = ".right_player";
+  }
+
+  var danceImg = $(div+" .dance"+e.dance.timestamp)
   danceImg.addClass("success").animate({marginBottom:(0-danceImg.height())},300,undefined, function() {
     danceImg.remove();
   });
-  Notifications.create(Notifications.randomSuccess()/*, isRight*/);
+  Notifications.create(Notifications.randomSuccess(), e.player.isRight());
 });
 
 $(document).bind("dance.fail",function(evt,e) {
-  var danceImg = $(".dance"+e.dance.timestamp)
+  var div = ".left_player";
+  if (e.player.isRight()) {
+    div = ".right_player";
+  }
+
+  var danceImg = $(div+" .dance"+e.dance.timestamp)
   danceImg.addClass("fail").animate({marginBottom:(0-danceImg.height())},300,undefined, function() {
     danceImg.remove();
   });
-  Notifications.create(Notifications.randomFail()/*, isRight*/);
+  Notifications.create(Notifications.randomFail(), e.player.isRight());
 });
 
 

@@ -40,6 +40,10 @@ Player = function(userId) {
 
     return this.userId == rightMostUserId;
   }
+  
+  this.isReady = function() {
+    return this.skeleton.handsOnHead();
+  }
 
   this.name = function() {
     return this.userId;
@@ -71,7 +75,16 @@ Player = function(userId) {
   this.success = function() {
     clearInterval(this.timeout);
     this.timeout = undefined;
-    $(document).trigger("dance.success", {dance:this.dance, player:this});
+    var points = this.dance.score;
+    var now = new Date();
+    now = now.getTime();
+    var timeLeft = this.endTime - now;
+    
+    points = points * (timeLeft / this.dance.allowedDuration);
+    
+    points = parseInt(points);
+    
+    $(document).trigger("dance.success", {dance:this.dance, player:this, points:points});
   }
 
   this.drawLimb = function(context, start, end) {
