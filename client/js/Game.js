@@ -79,7 +79,7 @@ Game = {
 
   // the actual begin method
   begin: function() {
-    $('body').addClass('players'+Game.users.length);
+    $('body').addClass('players'+Game.players.length);
     Song.play(song1);
     $(document).trigger("game.begin");
   },
@@ -148,7 +148,7 @@ $(document).bind("game.updateScores",function() {
     
   for (var i = 0; i < Game.players.length; i++) {
     var el = '#score_left';
-    if (false) { // if user is right
+    if (Game.players[i].isRight()) { // if user is right
       el = '#score_right';
     }
     
@@ -193,7 +193,7 @@ $(document).bind("dance.success",function(evt,e) {
   danceImg.addClass("success").animate({marginBottom:(0-danceImg.height())},300,undefined, function() {
     danceImg.remove();
   });
-  Notifications.create(Notifications.randomSuccess()/*, isRight*/);
+  Notifications.create(Notifications.randomSuccess(), e.player.isRight());
 });
 
 $(document).bind("dance.fail",function(evt,e) {
@@ -203,7 +203,7 @@ $(document).bind("dance.fail",function(evt,e) {
   danceImg.addClass("fail").animate({marginBottom:(0-danceImg.height())},300,undefined, function() {
     danceImg.remove();
   });
-  Notifications.create(Notifications.randomFail()/*, isRight*/);
+  Notifications.create(Notifications.randomFail(), e.player.isRight());
 });
 
 
