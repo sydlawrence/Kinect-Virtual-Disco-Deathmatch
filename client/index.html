@@ -50,15 +50,25 @@
 
 body {
   font-family: Comic Sans MS, Comic Sans, arial;
-  background:#fcc;
   -webkit-transition:background 500ms linear;
   -moz-transition:background 500ms linear;
   transition:background 500ms linear;
 }
 
+#our_project {
+  font-size:40px;
+  text-align:center;
+  font-weight:bold;
+  padding-top:10px;
+}
+
 body.calibrated {
   background:url(images/bg.jpg) top center;
   background-size:100% 100%;
+}
+
+body.calibrated #our_project {
+  display:none;
 }
 
 .countdown {
@@ -189,14 +199,33 @@ img.dance.success {
   left:auto;
 }
 
+#winner {
+  position:absolute;
+  z-index:99;
+  color:#fff;
+  text-shadow:0px 0px 10px #000000;
+  text-align:center;
+  padding-top:100px;
+  font-size:100px;
+  text-align:center;
+  width:100%;
+  display:none;
+}
+
 </style>
 </head>
 <body>
+<Div id="winner">Player 1 Wins!</DIV>
 <canvas id="kinectCanvas" width=640 height=480></canvas>
 <div style="position:absolute;right:0;top:0;">
   <div id="trackTime"></div>
 </div>
 <pre id="log"></pre>
+<div id="our_project">This is our project<br/>Paul (@nrocy) &amp; Syd (@sydlawrence)<br/>
+<img src="images/unicorn.gif" height=300/>
+
+<img src="images/cat.gif" height=300 />
+</div>
 
 <div class="score" id="score_left"></div>
 <div class="score right_player" id="score_right">0</div>

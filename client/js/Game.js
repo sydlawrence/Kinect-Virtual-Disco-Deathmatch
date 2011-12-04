@@ -169,6 +169,21 @@ $(document).bind("game.updateScores",function() {
       }
     }
     update_score(el,Game.players[i].score);
+    
+    if (Game.players[i].score >= 5000) {
+      Game.playSound("finishHim");
+    
+    
+      $(document).bind("game.stop");
+      
+      str = "Player 1 Wins!";
+      if (Game.players[i].isRight()) {
+        str = "Player 2 Wins!";
+      }      
+      $('#winner').css("display","block");     
+      $('#winner').html(str);
+    }
+    
 
   }
 

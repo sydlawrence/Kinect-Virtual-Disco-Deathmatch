@@ -40,9 +40,12 @@ Notifications = {
     }
     
     $('body').append($div);
-    $div.animate({opacity:0},1000,undefined, function() {
-      //$div.remove();
-    })
+    
+    $div.animate({opacity:1},500,undefined, function() {
+      $div.animate({opacity:0},1000,undefined, function() {
+        $div.remove();
+      });
+    });
   }
 
 }
